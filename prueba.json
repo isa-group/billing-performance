@@ -1,0 +1,65 @@
+{
+    "id": "ANS-POETISA",
+    "version": "1.0",
+    "type": "agreement",
+    "context": {
+      "iAgree": "2.0",
+      "provider": "https://www.isotrol.com/",
+      "consumer": "http://www.juntadeandalucia.es/",
+      "validity": {
+        "timeZone": "Europe/Madrid",
+        "initial": "2018-05-01T00:00:00.000Z"
+      },
+      "definitions": {
+        "schemas": {
+          "BillingDiscount": {
+            "description": "Percentage to be discounted at the next monthly bill",
+            "type": "double",
+            "unit": "%"
+          }
+        },
+        "scopes": {
+          "node": {
+            "name": "Node",
+            "description": "identifier for a node in the platform",
+            "type": "string"
+          },
+          "impact": {
+            "name": "Impact",
+            "description": "the impact of the node on the platform",
+            "type": "string"
+          }
+        }
+      },
+      "infrastructure": {
+        "designer": "http://designer.governify.io",
+        "billing": "http://pricing.governify.io/billing"
+      }
+    },
+    "terms": {
+      "pricing": {
+        "currency": "EUR",
+        "billing": {
+          "period": "monthly",
+          "initial": "2018-04-28T10:35:36.000Z",
+          "rewards": [
+            {
+              "over": {
+                "BillingDiscount": {
+                  "$ref": "#/context/definitions/schemas/BillingDiscount"
+                }
+              },
+              "aggregatedBy": "sum",
+              "of": [
+              ]
+            }
+          ]
+        }
+      },
+      "metrics": {
+      },
+      "guarantees": [
+        
+      ]
+    }
+  }
