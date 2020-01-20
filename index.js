@@ -5,6 +5,7 @@ const conversor = require('json2yaml');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const randomNormal = require('random-normal');
 const request = require("request");
+const Influx = require("influx");
 
 var apiInflux = "http://localhost:30086/write";
 
@@ -38,41 +39,34 @@ const argv = yargs
         }
     })
     .command('generateDataset', 'Generates a Dataset with the specified parameters', {
-      N: {
+      number_values: {
           description: 'number of samples',
           alias: 'n',
           type: 'number',
       },
-      metrics: {
-          description: 'number of different metrics',
-          alias: 'm',
-          type: 'number',
-      },
-      guarantees: {
-          description: 'number of different guarantees',
-          alias: 'g',
-          type: 'number',
-      },
-      complexity: {
-          description: 'complexity wanted',
-          alias: 'c',
-          type: 'string',
-      },
       prefix: {
-          description: 'prefix for metrics wanted',
+          description: 'prefix desired',
           alias: 'p',
           type: 'string',
+      },
+      mean: {
+          description: 'mean value of metrics',
+          alias: 'me',
+          type: 'number',
+      },
+      deviation: {
+          description: 'standar deviation of values',
+          alias: 'd',
+          type: 'number',
       }
   })
     .help()
     .alias('help', 'h')
     .argv;
 
-
-
 if (argv._.includes('generateYaml')) {
 
-    fs.readFile('prueba.json', (err, data) => {
+    fs.readFile('base.json', (err, data) => {
         if(err) throw err;
         let file = JSON.parse(data);
         let units = ["B","KB","MB","GB","TB","PT","EB", "%"];
@@ -82,7 +76,7 @@ if (argv._.includes('generateYaml')) {
 
         var newMetrics = [];
         while(newMetrics.length < argv.metrics){
-            var valor = argv.prefix + (newMetrics.length + 1);
+            var valor = "generated_" + argv.prefix + "_" + (newMetrics.length + 1);
 
             if(!newMetrics.includes(valor)){
                 newMetrics.push(valor);
@@ -93,7 +87,7 @@ if (argv._.includes('generateYaml')) {
                     descripcion: "Randomly generated metric",
                     type: "double",
                 },
-                computer: "http://localhost:30500/api/v1/metrics/"+ valor
+                computer: "http://localhost:30500/api/v1/"+ valor
             };
             if(unit != "%"){
                 ne.schema["minimum"] = 0;
@@ -110,6 +104,49 @@ if (argv._.includes('generateYaml')) {
             let comparator = comparators[Math.floor(Math.random() * comparators.length)];
             let valueCondition = 0;
 
+            let comparator2 = comparators[Math.floor(Math.random() * comparators.length)];
+            let comparator3 = comparators[Math.floor(Math.random() * comparators.length)];
+            let comparator4 = comparators[Math.floor(Math.random() * comparators.length)];
+
+            let operator = operators[Math.floor(Math.random() * operators.length)];
+            let operator2 = operators[Math.floor(Math.random() * operators.length)];
+            let operator3 = operators[Math.floor(Math.random() * operators.length)];
+            let operator4 = operators[Math.floor(Math.random() * operators.length)];
+
+            let conector = conectors[Math.floor(Math.random() * conectors.length)];
+
+            let metricDiscount2 = newMetrics[Math.floor(Math.random() * newMetrics.length)];
+            let metricDiscount3 = newMetrics[Math.floor(Math.random() * newMetrics.length)];
+            let metricDiscount4 = newMetrics[Math.floor(Math.random() * newMetrics.length)];
+            let metricDiscount5 = newMetrics[Math.floor(Math.random() * newMetrics.length)];
+            let metricDiscount6 = newMetrics[Math.floor(Math.random() * newMetrics.length)];
+
+            let unitMetric2 = file.terms.metrics[metricDiscount2].schema.unit;
+            let unitMetric3 = file.terms.metrics[metricDiscount4].schema.unit;
+            let unitMetric4 = file.terms.metrics[metricDiscount5].schema.unit;
+
+            let valueCondition2 = 0;
+            if(unitMetric2 == "%"){
+                valueCondition2 = (Math.floor(Math.random() * 9800) +1)/100;
+            }else{
+                valueCondition2 = (Math.floor(Math.random() *100* file.terms.metrics[metricDiscount2].schema.maximum-1)+1)/100;
+            }
+
+            let valueCondition3 = 0;
+            if(unitMetric3 == "%"){
+                valueCondition3 = (Math.floor(Math.random() * 9800) +1)/100;
+            }else{
+                valueCondition3 = (Math.floor(Math.random() *100* file.terms.metrics[metricDiscount4].schema.maximum-1)+1)/100;
+            }
+
+            let valueCondition4 = 0;
+            if(unitMetric4 == "%"){
+                valueCondition4 = (Math.floor(Math.random() * 9800) +1)/100;
+            }else{
+                valueCondition4 = (Math.floor(Math.random() *100* file.terms.metrics[metricDiscount5].schema.maximum-1)+1)/100;
+            }
+
+
             if(unitMetric == "%"){
                 valueCondition = (Math.floor(Math.random() * 9800) +1)/100;
             }else{
@@ -117,47 +154,6 @@ if (argv._.includes('generateYaml')) {
             }
 
             if(argv.complexity == "complex"){
-              let comparator2 = comparators[Math.floor(Math.random() * comparators.length)];
-              let comparator3 = comparators[Math.floor(Math.random() * comparators.length)];
-              let comparator4 = comparators[Math.floor(Math.random() * comparators.length)];
-
-              let operator = operators[Math.floor(Math.random() * operators.length)];
-              let operator2 = operators[Math.floor(Math.random() * operators.length)];
-              let operator3 = operators[Math.floor(Math.random() * operators.length)];
-              let operator4 = operators[Math.floor(Math.random() * operators.length)];
-
-              let conector = conectors[Math.floor(Math.random() * conectors.length)];
-
-              let metricDiscount2 = newMetrics[Math.floor(Math.random() * newMetrics.length)];
-              let metricDiscount3 = newMetrics[Math.floor(Math.random() * newMetrics.length)];
-              let metricDiscount4 = newMetrics[Math.floor(Math.random() * newMetrics.length)];
-              let metricDiscount5 = newMetrics[Math.floor(Math.random() * newMetrics.length)];
-              let metricDiscount6 = newMetrics[Math.floor(Math.random() * newMetrics.length)];
-
-              let unitMetric2 = file.terms.metrics[metricDiscount2].schema.unit;
-              let unitMetric3 = file.terms.metrics[metricDiscount4].schema.unit;
-              let unitMetric4 = file.terms.metrics[metricDiscount5].schema.unit;
-
-              let valueCondition2 = 0;
-              if(unitMetric2 == "%"){
-                  valueCondition2 = (Math.floor(Math.random() * 9800) +1)/100;
-              }else{
-                  valueCondition2 = (Math.floor(Math.random() *100* file.terms.metrics[metricDiscount2].schema.maximum-1)+1)/100;
-              }
-
-              let valueCondition3 = 0;
-              if(unitMetric3 == "%"){
-                  valueCondition3 = (Math.floor(Math.random() * 9800) +1)/100;
-              }else{
-                  valueCondition3 = (Math.floor(Math.random() *100* file.terms.metrics[metricDiscount4].schema.maximum-1)+1)/100;
-              }
-
-              let valueCondition4 = 0;
-              if(unitMetric4 == "%"){
-                  valueCondition4 = (Math.floor(Math.random() * 9800) +1)/100;
-              }else{
-                  valueCondition4 = (Math.floor(Math.random() *100* file.terms.metrics[metricDiscount5].schema.maximum-1)+1)/100;
-              }
 
               var newDiscount = {
                 value: Math.floor(Math.random() * 24)+1,
@@ -165,21 +161,6 @@ if (argv._.includes('generateYaml')) {
                   
               }
             }else if(argv.complexity == "medium"){
-
-              let metricDiscount2 = newMetrics[Math.floor(Math.random() * newMetrics.length)];
-              let metricDiscount3 = newMetrics[Math.floor(Math.random() * newMetrics.length)];
-              let unitMetric2 = file.terms.metrics[metricDiscount2].schema.unit;
-              let valueCondition2 = 0;
-              if(unitMetric2 == "%"){
-                  valueCondition2 = (Math.floor(Math.random() * 9800) +1)/100;
-              }else{
-                  valueCondition2 = (Math.floor(Math.random() *100* file.terms.metrics[metricDiscount2].schema.maximum-1)+1)/100;
-              }
-
-              let comparator2 = comparators[Math.floor(Math.random() * comparators.length)];
-              let operator = operators[Math.floor(Math.random() * operators.length)];
-              let operator2 = operators[Math.floor(Math.random() * operators.length)];
-
               var newDiscount = {
                 value: Math.floor(Math.random() * 24)+1,
                 condition: metricDiscount + operator + metricDiscount2 + " " + comparator + " " + valueCondition + operator2 + valueCondition2 + " " + comparator2 + " " + metricDiscount3
@@ -275,67 +256,49 @@ if (argv._.includes('generateYaml')) {
     });
 }
 
-if (argv._.includes('generateData')) {
+if (argv._.includes('generateDataset')) {
   fs.readFile('PoetisaSLA.yaml', (err, data) => {
     if(err) throw err;
     let file = yaml.load(data);
     let fileJson = JSON.parse( JSON.stringify(file));
 
-    const csvWriter = createCsvWriter({
-      path: './dataset.txt',
-      header: [
-          {id: 'name', title: 'name'},
-          {id: 'time', title: 'time'},
-          {id: 'cluster_name', title: 'cluster_name'},
-          {id: 'labels', title: 'labels'},
-          {id: 'namespace_name', title: 'namespace_name'},
-          {id: 'pod_name', title: 'pod_name'},
-          {id: 'type', title: 'type'},
-          {id: 'value', title: 'value'}
-      ]
-  });
-
-  /*const records = [];
+    var records = [];
+    var body= "";
     for( m in fileJson.terms.metrics){
       metric = fileJson.terms.metrics[m];
+      for(i=0; i<argv.number_values; i++){
 
-      records.push({name: metric.computer.slice(metric.computer.lastIndexOf("metrics/")+8,metric.computer.length),
-        time: Math.floor(randomNormal({mean: 14918634, dev: 186642}))*100000000000,
-        cluster_name: 'default',
-        labels: 'mysql',
-        namespace_name: 'default',
-        pod_name: 'moodle-rc-11700317',
-        type: metric.schema.maximum,
-        value: Math.floor(Math.random() *100* metric.schema.maximum)/100
-      });
+        body +=
+              metric.computer.slice(metric.computer.lastIndexOf("metrics/")+8,metric.computer.length)+
+              ",namespace_name=default,cluster_name=default,labels=mysql,type=pod,pod_name=moodle-rc-11700317 value=" +
+              randomNormal({mean: (metric.schema.maximum/100) * argv.mean, dev: (metric.schema.maximum/100)* argv.deviation})  + " " +
+              (Math.floor(Math.random()*37328400000000000) + 1473199200000000000) + "\n";
+      }
     }
-    csvWriter.writeRecords(records);*/
+    restartDB();
+    
+    setTimeout(() => {
+      apiWriteInflux(body);
+    }, 200);
 
-    //var records = '# DML\n# CONTEXT-DATABASE: k8s\n\n';
-    var records = '';
-    for( m in fileJson.terms.metrics){
-      metric = fileJson.terms.metrics[m];
-
-      records += metric.computer.slice(metric.computer.lastIndexOf("metrics/")+8,metric.computer.length) + ',time=' 
-        + Math.floor(randomNormal({mean: 14918634, dev: 186642}))*100000000000 + ',cluster_name=default,labels=mysql,namespace_name= default,'
-        + 'pod_name=moodle-rc-11700317,type=pod,value=' + Math.floor(Math.random() *100* metric.schema.maximum)/100+'\n';
-    }
-    apiWriteInflux(records);
-    var stream = fs.createWriteStream('dataset.txt');
-    stream.once('open', function(fd){
-      stream.write(records);
-    });
   });
 }
 
-function rand_str() {
-    const list = "ABCDEFGHIJKLMNPQRSTUVWXYZ";
-    var res = "";
-    for(var i = 0; i < 3; i++) {
-        var rnd = Math.floor(Math.random() * list.length);
-        res = res + list.charAt(rnd);
-    }
-    return res;
+
+function restartDB() {
+  return new Promise(function (resolve, reject) {
+
+    var o = new Influx.InfluxDB({
+      host: "localhost",
+      port: 30086,
+      database: "_internal"
+    });
+    o.dropDatabase('k8s');
+    setTimeout(() => {
+      o.createDatabase('k8s');
+    }, 100);
+  });
+  
 }
 
 function apiWriteInflux(data) {
@@ -354,7 +317,7 @@ function apiWriteInflux(data) {
   return new Promise(function(resolve, reject) {
     request(options, function(error, response, body) {
       if (error) return reject(error);
-      console.log("api " + data);
+      console.log(data);
       return resolve(body);
     });
   });

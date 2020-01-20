@@ -41,69 +41,29 @@
               aggregatedBy: "sum"
               of: 
                 - 
-                  value: 6
-                  condition: "(M5/M6 > 0.9+6.62 >= M5) ||(M3/M5 > 5+4.79 = M6) "
+                  value: 3
+                  condition: "(M1/M1 < 2.61/21.52 > M1) &&(M1+M1 > 18.8+67.28 < M1) "
                 - 
-                  value: 2
-                  condition: "(M6/M3 >= 3.39-22.71 > M1) ||(M4-M3 > 12.54/14.89 >= M3) "
+                  value: 7
+                  condition: "(M1/M1 < 11.66+41.96 = M1) ||(M1+M1 = 68.45-35.7 <= M1) "
                 - 
-                  value: 17
-                  condition: "(M5-M6 <= 3.8*4.87 > M4) ||(M6+M5 >= 1.37+5.64 >= M6) "
+                  value: 4
+                  condition: "(M1+M1 = 75.06/25.58 = M1) &&(M1/M1 < 38.01*37.12 >= M1) "
                 - 
-                  value: 20
-                  condition: "(M6/M3 >= 3.59+6.09 < M6) ||(M2+M2 < 23.8*13.48 < M4) "
+                  value: 8
+                  condition: "(M1/M1 >= 58.78-13.81 > M1) &&(M1-M1 > 32.71*62.54 < M1) "
       metrics: 
         M1: 
           schema: 
             descripcion: "Randomly generated metric"
             type: "double"
             minimum: 0
-            maximum: 93
-            unit: "B"
-          computer: "http://localhost:30500/api/v1/metrics/M1"
-        M2: 
-          schema: 
-            descripcion: "Randomly generated metric"
-            type: "double"
-            minimum: 0
-            maximum: 70
-            unit: "KB"
-          computer: "http://localhost:30500/api/v1/metrics/M2"
-        M3: 
-          schema: 
-            descripcion: "Randomly generated metric"
-            type: "double"
-            minimum: 0
-            maximum: 32
-            unit: "TB"
-          computer: "http://localhost:30500/api/v1/metrics/M3"
-        M4: 
-          schema: 
-            descripcion: "Randomly generated metric"
-            type: "double"
-            minimum: 0
-            maximum: 80
-            unit: "MB"
-          computer: "http://localhost:30500/api/v1/metrics/M4"
-        M5: 
-          schema: 
-            descripcion: "Randomly generated metric"
-            type: "double"
-            minimum: 0
-            maximum: 6
+            maximum: 82
             unit: "GB"
-          computer: "http://localhost:30500/api/v1/metrics/M5"
-        M6: 
-          schema: 
-            descripcion: "Randomly generated metric"
-            type: "double"
-            minimum: 0
-            maximum: 11
-            unit: "TB"
-          computer: "http://localhost:30500/api/v1/metrics/M6"
+          computer: "http://localhost:30500/api/v1/metrics/M1"
       guarantees: 
         - 
-          id: "G_M2"
+          id: "G_M1"
           scope: 
             priority: 
               $ref: "#/context/definitions/scopes/impact"
@@ -114,7 +74,7 @@
               scope: 
                 node: "k-master, k-mysql, k-nfs, k-proxy"
                 impact: "high"
-              objective: "M2 >= 67.5"
+              objective: "M1 >= 77.5"
               window: 
                 type: "static"
                 period: "monthly"
@@ -123,7 +83,7 @@
               scope: 
                 node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
                 impact: "medium"
-              objective: "M2 >= 40.09"
+              objective: "M1 >= 51.13"
               window: 
                 type: "static"
                 period: "monthly"
@@ -132,7 +92,7 @@
               scope: 
                 node: "k-portal, k-registry"
                 impact: "low"
-              objective: "M2 >= 59.43"
+              objective: "M1 >= 56.97"
               window: 
                 type: "static"
                 period: "monthly"

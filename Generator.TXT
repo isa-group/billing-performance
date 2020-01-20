@@ -1,5 +1,0 @@
-1. Numero de descuentos para cada metrica
-
-2. Numero de metricas  ------> Numero de datos en el datasetGenerator
-
-3. Numero de Garantias

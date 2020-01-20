@@ -1,6 +1,0 @@
-M1,time=1499227200000000000,cluster_name=default,labels=mysql,namespace_name= default,pod_name=moodle-rc-11700317,type=pod,value=69.95
-M2,time=1456704800000000000,cluster_name=default,labels=mysql,namespace_name= default,pod_name=moodle-rc-11700317,type=pod,value=7.3
-M3,time=1507938200000000000,cluster_name=default,labels=mysql,namespace_name= default,pod_name=moodle-rc-11700317,type=pod,value=30.36
-M4,time=1482847600000000000,cluster_name=default,labels=mysql,namespace_name= default,pod_name=moodle-rc-11700317,type=pod,value=5.31
-M5,time=1525532100000000000,cluster_name=default,labels=mysql,namespace_name= default,pod_name=moodle-rc-11700317,type=pod,value=3.94
-M6,time=1495097400000000000,cluster_name=default,labels=mysql,namespace_name= default,pod_name=moodle-rc-11700317,type=pod,value=9.08
