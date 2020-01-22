@@ -264,15 +264,18 @@ if (argv._.includes('generateDataset')) {
 
     var records = [];
     var body= "";
+    var timeJump = 37328400000000000/ (argv.number_values - 1);
+    var j = 0
     for( m in fileJson.terms.metrics){
       metric = fileJson.terms.metrics[m];
+      j++;
       for(i=0; i<argv.number_values; i++){
 
         body +=
-              metric.computer.slice(metric.computer.lastIndexOf("metrics/")+8,metric.computer.length)+
+              argv.prefix + "_M-" + j +
               ",namespace_name=default,cluster_name=default,labels=mysql,type=pod,pod_name=moodle-rc-11700317 value=" +
-              randomNormal({mean: (metric.schema.maximum/100) * argv.mean, dev: (metric.schema.maximum/100)* argv.deviation})  + " " +
-              (Math.floor(Math.random()*37328400000000000) + 1473199200000000000) + "\n";
+              randomNormal({mean: (metric.schema.maximum/100) * argv.mean, dev: (metric.schema.maximum/100)* argv.deviation}).toFixed(2)  + " " +
+              Math.floor(timeJump * i + 1473199200000000000) + "\n";
       }
     }
     restartDB();
