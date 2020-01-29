@@ -41,29 +41,37 @@
               aggregatedBy: "sum"
               of: 
                 - 
-                  value: 3
-                  condition: "(M1/M1 < 2.61/21.52 > M1) &&(M1+M1 > 18.8+67.28 < M1) "
+                  value: 24
+                  condition: "(generated_M_1/generated_M_2 >= 39.08+2.07 >= generated_M_2) ||(generated_M_1+generated_M_2 = 4.91+0 > generated_M_2) "
                 - 
-                  value: 7
-                  condition: "(M1/M1 < 11.66+41.96 = M1) ||(M1+M1 = 68.45-35.7 <= M1) "
+                  value: 22
+                  condition: "(generated_M_2*generated_M_2 < 2.62/6.32 <= generated_M_1) &&(generated_M_1/generated_M_2 > 35.87+8.95 = generated_M_2) "
                 - 
-                  value: 4
-                  condition: "(M1+M1 = 75.06/25.58 = M1) &&(M1/M1 < 38.01*37.12 >= M1) "
+                  value: 23
+                  condition: "(generated_M_1+generated_M_1 < 31.18*35.67 <= generated_M_2) &&(generated_M_1*generated_M_2 > 41.52/10.8 >= generated_M_1) "
                 - 
-                  value: 8
-                  condition: "(M1/M1 >= 58.78-13.81 > M1) &&(M1-M1 > 32.71*62.54 < M1) "
+                  value: 14
+                  condition: "(generated_M_1/generated_M_2 <= 39.48-8.27 > generated_M_1) ||(generated_M_2-generated_M_1 <= 9.08-21.34 > generated_M_2) "
       metrics: 
-        M1: 
+        generated_M_1: 
           schema: 
             descripcion: "Randomly generated metric"
             type: "double"
             minimum: 0
-            maximum: 82
-            unit: "GB"
-          computer: "http://localhost:30500/api/v1/metrics/M1"
+            maximum: 47
+            unit: "MB"
+          computer: "http://localhost:30500/api/v3/generated_M_1"
+        generated_M_2: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            minimum: 0
+            maximum: 12
+            unit: "TB"
+          computer: "http://localhost:30500/api/v3/generated_M_2"
       guarantees: 
         - 
-          id: "G_M1"
+          id: "G_generated_M_2"
           scope: 
             priority: 
               $ref: "#/context/definitions/scopes/impact"
@@ -74,7 +82,7 @@
               scope: 
                 node: "k-master, k-mysql, k-nfs, k-proxy"
                 impact: "high"
-              objective: "M1 >= 77.5"
+              objective: "generated_M_2 >= 11.940000000000001"
               window: 
                 type: "static"
                 period: "monthly"
@@ -83,7 +91,7 @@
               scope: 
                 node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
                 impact: "medium"
-              objective: "M1 >= 51.13"
+              objective: "generated_M_2 >= 10.51"
               window: 
                 type: "static"
                 period: "monthly"
@@ -92,7 +100,7 @@
               scope: 
                 node: "k-portal, k-registry"
                 impact: "low"
-              objective: "M1 >= 56.97"
+              objective: "generated_M_2 >= 6.25"
               window: 
                 type: "static"
                 period: "monthly"

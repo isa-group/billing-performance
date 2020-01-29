@@ -1,0 +1,65 @@
+swagger: "2.0"
+info:
+  description: "A sample API that uses a petstore as an example to demonstrate features\
+    \ in the swagger-2.0 specification"
+  version: "2.0.0"
+  title: "Swagger metrics"
+  termsOfService: "http://helloreverb.com/terms/"
+  contact:
+    name: "ISA Research Group"
+    url: "http://www.isa.us.es/"
+    email: "isagroup.us@gmail.com"
+  license:
+    name: "MIT"
+    url: "http://opensource.org/licenses/MIT"
+host: "localhost:30500"
+basePath: "/api/v3"
+schemes:
+  - "http"
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+paths:
+  /generated:
+    get:
+      description: "Returns an average value of a metric"
+      operationId: "generated"
+      parameters:
+        - name: "from"
+          in: "query"
+          description: "from date yyyy-mm-dd"
+          required: true
+          type: "string"
+          format: date
+        - name: "to"
+          in: "query"
+          description: "to date yyyy-mm-dd"
+          required: false
+          type: "string"
+          format: date
+        - name: "node"
+          in: "query"
+          description: "Average value of the node"
+          required: false
+          type: "string"
+        - name: "pod_name"
+          in: "query"
+          description: "Average value of the pod"
+          type: "string"
+        - name: "namespace"
+          in: "query"
+          description: "Average value of the namespace"
+          required: false
+          type: "string"
+        - name: "metric_name"
+          in: "query"
+          description: "Average value of the metric"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Average value of the metric"
+        default:
+          description: "unexpected error"
+      x-swagger-router-controller: "Default"

@@ -51,13 +51,18 @@ const argv = yargs
       },
       mean: {
           description: 'mean value of metrics',
-          alias: 'me',
+          alias: 'm',
           type: 'number',
       },
       deviation: {
           description: 'standar deviation of values',
           alias: 'd',
           type: 'number',
+      },
+      restart: {
+          description: 'restart database',
+          alias: 'r',
+          type: 'string',
       }
   })
     .help()
@@ -87,7 +92,7 @@ if (argv._.includes('generateYaml')) {
                     descripcion: "Randomly generated metric",
                     type: "double",
                 },
-                computer: "http://localhost:30500/api/v1/"+ valor
+                computer: "http://localhost:30500/api/v3/"+ valor
             };
             if(unit != "%"){
                 ne.schema["minimum"] = 0;
@@ -251,35 +256,45 @@ if (argv._.includes('generateYaml')) {
         let fileYaml = conversor.stringify(file);
 
         let yamlStr = yaml.safeDump(fileYaml);
-        fs.writeFileSync('PoetisaSLA.yaml', yamlStr.slice(7, yamlStr.length), 'utf8');
+        fs.writeFileSync('PoetisaSLA.yml', yamlStr.slice(7, yamlStr.length), 'utf8');
 
     });
 }
 
 if (argv._.includes('generateDataset')) {
-  fs.readFile('PoetisaSLA.yaml', (err, data) => {
+  fs.readFile('PoetisaSLA.yml', (err, data) => {
     if(err) throw err;
     let file = yaml.load(data);
     let fileJson = JSON.parse( JSON.stringify(file));
 
     var records = [];
-    var body= "";
+    var body = "";
     var timeJump = 37328400000000000/ (argv.number_values - 1);
-    var j = 0
+    var j = 0;
+    var is_percentage = false;
+    var metric_value = 0;
+
     for( m in fileJson.terms.metrics){
       metric = fileJson.terms.metrics[m];
+      is_percentage = metric.schema.unit == "%";
       j++;
       for(i=0; i<argv.number_values; i++){
-
+        
+        if(is_percentage){
+          metric_value = randomNormal({mean: argv.mean, dev: argv.deviation}).toFixed(2)
+        }else{
+          metric_value = randomNormal({mean: (metric.schema.maximum/100) * argv.mean, dev: (metric.schema.maximum/100)* argv.deviation}).toFixed(2);
+        }
         body +=
               argv.prefix + "_M-" + j +
               ",namespace_name=default,cluster_name=default,labels=mysql,type=pod,pod_name=moodle-rc-11700317 value=" +
-              randomNormal({mean: (metric.schema.maximum/100) * argv.mean, dev: (metric.schema.maximum/100)* argv.deviation}).toFixed(2)  + " " +
+              metric_value + " " +
               Math.floor(timeJump * i + 1473199200000000000) + "\n";
       }
     }
-    restartDB();
-    
+    if(argv.restart == "true"){
+      restartDB();
+    }
     setTimeout(() => {
       apiWriteInflux(body);
     }, 200);
