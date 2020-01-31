@@ -41,34 +41,65 @@
               aggregatedBy: "sum"
               of: 
                 - 
-                  value: 24
-                  condition: "(generated_M_1/generated_M_2 >= 39.08+2.07 >= generated_M_2) ||(generated_M_1+generated_M_2 = 4.91+0 > generated_M_2) "
+                  value: 15
+                  condition: "generated_M_3 <= 30.03"
                 - 
-                  value: 22
-                  condition: "(generated_M_2*generated_M_2 < 2.62/6.32 <= generated_M_1) &&(generated_M_1/generated_M_2 > 35.87+8.95 = generated_M_2) "
+                  value: 2
+                  condition: "generated_M_2 <= 0.87"
                 - 
-                  value: 23
-                  condition: "(generated_M_1+generated_M_1 < 31.18*35.67 <= generated_M_2) &&(generated_M_1*generated_M_2 > 41.52/10.8 >= generated_M_1) "
+                  value: 11
+                  condition: "generated_M_3 <= 46.34"
                 - 
-                  value: 14
-                  condition: "(generated_M_1/generated_M_2 <= 39.48-8.27 > generated_M_1) ||(generated_M_2-generated_M_1 <= 9.08-21.34 > generated_M_2) "
+                  value: 2
+                  condition: "generated_M_1 < 10.6"
+                - 
+                  value: 7
+                  condition: "generated_M_4 > 43.25"
+                - 
+                  value: 10
+                  condition: "generated_M_3 >= 39.75"
+                - 
+                  value: 7
+                  condition: "generated_M_1 > 4.27"
+                - 
+                  value: 1
+                  condition: "generated_M_1 >= 17.48"
+                - 
+                  value: 20
+                  condition: "generated_M_3 >= 8.06"
       metrics: 
         generated_M_1: 
           schema: 
             descripcion: "Randomly generated metric"
             type: "double"
             minimum: 0
-            maximum: 47
-            unit: "MB"
+            maximum: 18
+            unit: "KB"
           computer: "http://localhost:30500/api/v3/generated_M_1"
         generated_M_2: 
           schema: 
             descripcion: "Randomly generated metric"
             type: "double"
             minimum: 0
-            maximum: 12
-            unit: "TB"
+            maximum: 6
+            unit: "KB"
           computer: "http://localhost:30500/api/v3/generated_M_2"
+        generated_M_3: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            minimum: 0
+            maximum: 58
+            unit: "EB"
+          computer: "http://localhost:30500/api/v3/generated_M_3"
+        generated_M_4: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            minimum: 0
+            maximum: 91
+            unit: "B"
+          computer: "http://localhost:30500/api/v3/generated_M_4"
       guarantees: 
         - 
           id: "G_generated_M_2"
@@ -82,7 +113,7 @@
               scope: 
                 node: "k-master, k-mysql, k-nfs, k-proxy"
                 impact: "high"
-              objective: "generated_M_2 >= 11.940000000000001"
+              objective: "generated_M_2 >= 3.92"
               window: 
                 type: "static"
                 period: "monthly"
@@ -91,7 +122,7 @@
               scope: 
                 node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
                 impact: "medium"
-              objective: "generated_M_2 >= 10.51"
+              objective: "generated_M_2 >= 4.1899999999999995"
               window: 
                 type: "static"
                 period: "monthly"
@@ -100,7 +131,7 @@
               scope: 
                 node: "k-portal, k-registry"
                 impact: "low"
-              objective: "generated_M_2 >= 6.25"
+              objective: "generated_M_2 >= 5.3100000000000005"
               window: 
                 type: "static"
                 period: "monthly"
