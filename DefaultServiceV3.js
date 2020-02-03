@@ -21,6 +21,7 @@ var buildQuery = (query, node, pod_name, namespace) => {
 };
 
 exports.generated = function (from, to, node, namespace, pod_name, metric_name) {
+  console.log(metric_name);
   return new Promise(function (resolve, reject) {
     var fromDate = moment(from);
     var toDate = moment(to);

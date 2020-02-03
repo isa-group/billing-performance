@@ -2,7 +2,7 @@
     swagger: "2.0"
     info: 
       description: "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification"
-      version: "2.0.0"
+      version: "3.0.0"
       title: "Swagger metrics"
       termsOfService: "http://helloreverb.com/terms/"
       contact: 
@@ -89,11 +89,17 @@
             default: 
               description: "unexpected error"
           x-swagger-router-controller: "Default"
-      /generated_M_1: 
+      /generated/{metric_name}: 
         get: 
           description: "Returns the average value of the metric"
           operationId: "generated"
           parameters: 
+            - 
+              name: "metric_name"
+              in: "path"
+              description: "Name of the metric"
+              required: true
+              type: "string"
             - 
               name: "from"
               in: "query"
@@ -124,159 +130,6 @@
               name: "pod_name"
               in: "query"
               description: "pod of the system"
-              required: false
-              type: "string"
-            - 
-              name: "metric_name"
-              in: "query"
-              description: "Name of the metric"
-              required: false
-              type: "string"
-          responses: 
-            200: 
-              description: "average value of the node"
-            default: 
-              description: "unexpected error"
-          x-swagger-router-controller: "Default"
-      /generated_M_2: 
-        get: 
-          description: "Returns the average value of the metric"
-          operationId: "generated"
-          parameters: 
-            - 
-              name: "from"
-              in: "query"
-              description: "from date yyyy-mm-dd"
-              required: true
-              type: "string"
-              format: "date"
-            - 
-              name: "to"
-              in: "query"
-              description: "to date yyyy-mm-dd"
-              required: false
-              type: "string"
-              format: "date"
-            - 
-              name: "node"
-              in: "query"
-              description: "node of the system"
-              required: false
-              type: "string"
-            - 
-              name: "namespace"
-              in: "query"
-              description: "namespace of the system"
-              required: false
-              type: "string"
-            - 
-              name: "pod_name"
-              in: "query"
-              description: "pod of the system"
-              required: false
-              type: "string"
-            - 
-              name: "metric_name"
-              in: "query"
-              description: "Name of the metric"
-              required: false
-              type: "string"
-          responses: 
-            200: 
-              description: "average value of the node"
-            default: 
-              description: "unexpected error"
-          x-swagger-router-controller: "Default"
-      /generated_M_3: 
-        get: 
-          description: "Returns the average value of the metric"
-          operationId: "generated"
-          parameters: 
-            - 
-              name: "from"
-              in: "query"
-              description: "from date yyyy-mm-dd"
-              required: true
-              type: "string"
-              format: "date"
-            - 
-              name: "to"
-              in: "query"
-              description: "to date yyyy-mm-dd"
-              required: false
-              type: "string"
-              format: "date"
-            - 
-              name: "node"
-              in: "query"
-              description: "node of the system"
-              required: false
-              type: "string"
-            - 
-              name: "namespace"
-              in: "query"
-              description: "namespace of the system"
-              required: false
-              type: "string"
-            - 
-              name: "pod_name"
-              in: "query"
-              description: "pod of the system"
-              required: false
-              type: "string"
-            - 
-              name: "metric_name"
-              in: "query"
-              description: "Name of the metric"
-              required: false
-              type: "string"
-          responses: 
-            200: 
-              description: "average value of the node"
-            default: 
-              description: "unexpected error"
-          x-swagger-router-controller: "Default"
-      /generated_M_4: 
-        get: 
-          description: "Returns the average value of the metric"
-          operationId: "generated"
-          parameters: 
-            - 
-              name: "from"
-              in: "query"
-              description: "from date yyyy-mm-dd"
-              required: true
-              type: "string"
-              format: "date"
-            - 
-              name: "to"
-              in: "query"
-              description: "to date yyyy-mm-dd"
-              required: false
-              type: "string"
-              format: "date"
-            - 
-              name: "node"
-              in: "query"
-              description: "node of the system"
-              required: false
-              type: "string"
-            - 
-              name: "namespace"
-              in: "query"
-              description: "namespace of the system"
-              required: false
-              type: "string"
-            - 
-              name: "pod_name"
-              in: "query"
-              description: "pod of the system"
-              required: false
-              type: "string"
-            - 
-              name: "metric_name"
-              in: "query"
-              description: "Name of the metric"
               required: false
               type: "string"
           responses: 

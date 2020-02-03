@@ -1,0 +1,53 @@
+{
+	"info": {
+		"_postman_id": "ef9e4e59-bab4-4a71-a5c1-4af8175f0eb4",
+		"name": "Poetisa",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:5050/api/v1/billing?date=2016-09-01",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5050/api/v1/billing?date=2016-09-01",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5050",
+					"path": [
+						"api",
+						"v1",
+						"billing"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2016-09-01"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -64,14 +64,14 @@ const argv = yargs
           alias: 'r',
           type: 'string',
       }
-  })
+  }).command('generateCollection', 'Generates a Collection based on the current yamls')
     .help()
     .alias('help', 'h')
     .argv;
 
 if (argv._.includes('generateYaml')) {
 
-  fs.readFile('base.json', (err, data) => {
+  fs.readFile('bases/baseYaml.json', (err, data) => {
     if(err) throw err;
     var file = JSON.parse(data);
     let units = ["B","KB","MB","GB","TB","PT","EB", "%"];
@@ -91,7 +91,7 @@ if (argv._.includes('generateYaml')) {
                 descripcion: "Randomly generated metric",
                 type: "double",
             },
-            computer: "http://localhost:30500/api/v3/"+ valor
+            computer: "http://localhost:30500/api/v3/generated/"+ valor
         };
         if(unit != "%"){
             ne.schema["minimum"] = 0;
@@ -256,90 +256,23 @@ if (argv._.includes('generateYaml')) {
 
     let yamlStr = yaml.safeDump(fileYaml);
     fs.writeFileSync('PoetisaSLA.yml', yamlStr.slice(7, yamlStr.length), 'utf8');
-    fs.readFile('baseSwagger.json', (err, data) => {
-      if(err) throw err;
-      let file2 = JSON.parse(data);
-  
-      let newPath = {
-        get: {
-          description: "Returns the average value of the metric",
-          operationId: "generated",
-          parameters: [
-            {
-              name: "from",
-              in: "query",
-              description: "from date yyyy-mm-dd",
-              required: true,
-              type: "string",
-              format: "date"
-            },
-            {
-              name: "to",
-              in: "query",
-              description: "to date yyyy-mm-dd",
-              required: false,
-              type: "string",
-              format: "date"
-            },
-            {
-              name: "node",
-              in: "query",
-              description: "node of the system",
-              required: false,
-              type: "string"
-            },
-            {
-              name: "namespace",
-              in: "query",
-              description: "namespace of the system",
-              required: false,
-              type: "string"
-            },
-            {
-              name: "pod_name",
-              in: "query",
-              description: "pod of the system",
-              required: false,
-              type: "string"
-            },
-            {
-              name: "metric_name",
-              in: "query",
-              description: "Name of the metric",
-              required: false,
-              type: "string"
-            }
-          ],
-          responses: {
-            200: {
-              description: "average value of the node"
-            },
-            default: {
-              description: "unexpected error"
-            }
-          },
-          "x-swagger-router-controller": "Default"
-        }
-      }
-  
-      for(i= 0; i< newMetrics.length; i++){
-  
-        file2.paths["/"+newMetrics[i]] = newPath;
-  
-      }
-      let fileYaml2 = conversor.stringify(file2);
-  
-      let yamlStr2 = yaml.safeDump(fileYaml2);
-      fs.writeFileSync('swaggerV3.yaml', yamlStr2.slice(7, yamlStr2.length), 'utf8');
-    });
+    fs.writeFileSync('PoetisaSLA.json', JSON.stringify(file), 'utf8');
+  });
+    
+}
 
-  // Collection Generator------------------------------------------------------------------------------------------------------
+// Collection Generator------------------------------------------------------------------------------------------------------
 
-    fs.readFile('baseCollection.json', (err, data) => {
+if (argv._.includes('generateCollection')) {
+
+  fs.readFile('PoetisaSLA.json', (err, data) => {
+    if(err) throw err;
+    var file = JSON.parse(data);
+
+    fs.readFile('bases/baseCollection.json', (err, data) => {
       if(err) throw err;
       let file3 = JSON.parse(data);
       let max= 0;
-      let met;
       let billings = file.terms.pricing.billing.rewards[0].of;
       let current_billing;
       let guarantees2 = file.terms.guarantees;
@@ -355,20 +288,20 @@ if (argv._.includes('generateYaml')) {
         let met = {
           schema: {
               description: "Generated",
-              minimum: "" + 0,
-              maximum: "" + max,
+              minimum: "0",
+              maximum: "" + max.toString(),
               type: "double",
               unit: me.schema.unit
           },
-          computer: "http://localhost:5001/api/v3/"+m+"&metric_name="+m
+          computer: "http://localhost:5001/api/v3/generated/"+m
         }
         file3.terms.metrics[m] = met;
       }
 
       for(i=0; i< billings.length; i++){
         current_billing = billings[i];
-        current_billing["$$hashKey"] = "object:"+ (i+5);
-        current_billing["value"] = ""+current_billing["value"];
+        //current_billing["$$hashKey"] = "object:"+ (i+5);
+        current_billing["value"] = current_billing["value"].toString();
         file3.terms.pricing.billing.rewards[0].of.push(current_billing);
         
       }
@@ -377,14 +310,15 @@ if (argv._.includes('generateYaml')) {
         current_guarantee = guarantees2[i];
         file3.terms.guarantees.push(current_guarantee);
       }
-      console.log(current_guarantee);
-      
-      fs.writeFileSync('prueba.json',JSON.stringify( file3), 'utf8');
+      fs.readFile('bases/Poetisa.baseCollection.json', (err, data) => {
+        if(err) throw err;
+        let file4 = JSON.parse(data);
+
+        file4.item[0].request.body.raw = JSON.stringify(file3);
+        fs.writeFileSync('Poetisa.collection.json', JSON.stringify(file4), 'utf8');
+      });
     });
   });
-
-
-    
 }
 
 if (argv._.includes('generateDataset')) {
@@ -400,6 +334,10 @@ if (argv._.includes('generateDataset')) {
     var is_percentage = false;
     var metric_value = 0;
 
+    if(argv.restart == "true"){
+      restartDB();
+    }
+    
     for( m in fileJson.terms.metrics){
       metric = fileJson.terms.metrics[m];
       is_percentage = metric.schema.unit == "%";
@@ -411,19 +349,21 @@ if (argv._.includes('generateDataset')) {
         }else{
           metric_value = randomNormal({mean: (metric.schema.maximum/100) * argv.mean, dev: (metric.schema.maximum/100)* argv.deviation}).toFixed(2);
         }
+        if(metric_value < 0){
+          metric_value = 0;
+        }
         body +=
               argv.prefix + "_M-" + j +
               ",namespace_name=default,cluster_name=default,labels=mysql,type=pod,pod_name=moodle-rc-11700317 value=" +
               metric_value + " " +
               Math.floor(timeJump * i + 1473199200000000000) + "\n";
       }
+      
     }
-    if(argv.restart == "true"){
-      restartDB();
-    }
-    setTimeout(() => {
-      apiWriteInflux(body);
-    }, 200);
+
+  setTimeout(() => {
+    apiWriteInflux(body);
+    }, 2000);
 
   });
 }
@@ -440,7 +380,7 @@ function restartDB() {
     o.dropDatabase('k8s');
     setTimeout(() => {
       o.createDatabase('k8s');
-    }, 100);
+    }, 1000);
   });
   
 }
@@ -461,7 +401,7 @@ function apiWriteInflux(data) {
   return new Promise(function(resolve, reject) {
     request(options, function(error, response, body) {
       if (error) return reject(error);
-      console.log(data);
+      
       return resolve(body);
     });
   });

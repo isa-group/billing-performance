@@ -148,6 +148,7 @@ module.exports.generated = function generated(req, res, next) {
   var namespace = req.swagger.params['namespace'].value;
   var pod_name = req.swagger.params['pod_name'].value;
   var metric_name = req.swagger.params['metric_name'].value;
+  console.log(metric_name);
   DefaultV3.generated(from, to, node, namespace, pod_name, metric_name)
     .then(response => {
       utils.writeJson(res, response);
