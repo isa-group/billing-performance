@@ -2,19 +2,20 @@ const yargs = require('yargs');
 const fs = require('fs');
 const yaml = require('js-yaml');
 const conversor = require('json2yaml');
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const randomNormal = require('random-normal');
 const request = require("request");
 const Influx = require("influx");
+const newman = require('newman');
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 var apiInflux = "http://localhost:30086/write";
 
 
 const argv = yargs
-    .command('generateYaml', 'Generates a Yaml with the specified parameters', {
+    .command('generateExperiment', 'Generates a Yaml with the specified parameters', {
         discounts: {
             description: 'number of different discounts',
-            alias: 'd',
+            alias: 'di',
             type: 'number',
         },
         metrics: {
@@ -32,26 +33,24 @@ const argv = yargs
             alias: 'c',
             type: 'string',
         },
-        prefix: {
+        prefixMetrics: {
             description: 'prefix for metrics wanted',
-            alias: 'p',
+            alias: 'pm',
             type: 'string',
-        }
-    })
-    .command('generateDataset', 'Generates a Dataset with the specified parameters', {
-      number_values: {
+        },
+        number_values: {
           description: 'number of samples',
           alias: 'n',
           type: 'number',
       },
-      prefix: {
+      prefixData: {
           description: 'prefix desired',
-          alias: 'p',
+          alias: 'pd',
           type: 'string',
       },
       mean: {
           description: 'mean value of metrics',
-          alias: 'm',
+          alias: 'me',
           type: 'number',
       },
       deviation: {
@@ -63,17 +62,50 @@ const argv = yargs
           description: 'restart database',
           alias: 'r',
           type: 'string',
+      },
+      iterations: {
+          description: 'number of times the collection will be run',
+          alias: 'i',
+          type: 'number',
       }
-  }).command('generateCollection', 'Generates a Collection based on the current yamls')
-    .help()
-    .alias('help', 'h')
-    .argv;
+    }
+  )
+.help().alias('help', 'h').argv;
 
-if (argv._.includes('generateYaml')) {
+const csvWriter = createCsvWriter({
+  path: './CSVs/Experiment_'+argv.prefixMetrics+'.csv',
+  header: [
+      {id: 'numberMetrics', title: 'NUMBER_METRICS'},
+      {id: 'numberDiscounts', title: 'NUMBER_DISCOUNTS'},
+      {id: 'numberGuarantees', title: 'NUMBER_GUARANTEES'},
+      {id: 'Complexity', title: 'COMPLEXITY'},
+      {id: 'entriesPerMetric', title: 'ENTIRES_PER_METRIC'},
+      {id: 'responseAverage', title: 'RESPONSE_AVG'},
+      {id: 'responseMin', title: 'RESPONSE_MIN'},
+      {id: 'responseMax', title: 'RESPONSE_MAX'},
+      {id: 'responseSd', title: 'RESPONSE_SD'},
+      {id: 'dataReceived', title: 'BYTES_RECEIVED'},
+      {id: 'numberIterations', title: 'NUMBER_ITERATIONS'}
+  ]
+});
+
+//Variables for the files to write
+
+var sla;
+var postRequest;
+var requestCollection;
+var records = [];
+
+
+
+
+if (argv._.includes('generateExperiment')) {
+
+//Sla Generator ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   fs.readFile('bases/baseYaml.json', (err, data) => {
     if(err) throw err;
-    var file = JSON.parse(data);
+    sla = JSON.parse(data);
     let units = ["B","KB","MB","GB","TB","PT","EB", "%"];
     var comparators = ["<", ">", "<=", ">="];
     var operators = ["+", "-", "*", "/"];
@@ -81,7 +113,7 @@ if (argv._.includes('generateYaml')) {
 
     var newMetrics = [];
     while(newMetrics.length < argv.metrics){
-        var valor = "generated_" + argv.prefix + "_" + (newMetrics.length + 1);
+        var valor = "generated_" + argv.prefixMetrics + "_" + (newMetrics.length + 1);
 
         newMetrics.push(valor);
 
@@ -98,13 +130,13 @@ if (argv._.includes('generateYaml')) {
             ne.schema["maximum"] = Math.floor(Math.random() * 99)+1;
         }
         ne.schema["unit"] = unit;
-        file.terms.metrics[valor] = ne;
-      
+        sla.terms.metrics[valor] = ne;
+        
     }
 
     for(i= 0; i<argv.discounts; i++){
         let metricDiscount = newMetrics[Math.floor(Math.random() * newMetrics.length)];
-        let unitMetric = file.terms.metrics[metricDiscount].schema.unit;
+        let unitMetric = sla.terms.metrics[metricDiscount].schema.unit;
         let comparator = comparators[Math.floor(Math.random() * comparators.length)];
         let valueCondition = 0;
 
@@ -125,49 +157,53 @@ if (argv._.includes('generateYaml')) {
         let metricDiscount5 = newMetrics[Math.floor(Math.random() * newMetrics.length)];
         let metricDiscount6 = newMetrics[Math.floor(Math.random() * newMetrics.length)];
 
-        let unitMetric2 = file.terms.metrics[metricDiscount2].schema.unit;
-        let unitMetric3 = file.terms.metrics[metricDiscount4].schema.unit;
-        let unitMetric4 = file.terms.metrics[metricDiscount5].schema.unit;
+        let unitMetric2 = sla.terms.metrics[metricDiscount2].schema.unit;
+        let unitMetric3 = sla.terms.metrics[metricDiscount4].schema.unit;
+        let unitMetric4 = sla.terms.metrics[metricDiscount5].schema.unit;
 
         let valueCondition2 = 0;
         if(unitMetric2 == "%"){
             valueCondition2 = (Math.floor(Math.random() * 9800) +1)/100;
         }else{
-            valueCondition2 = (Math.floor(Math.random() *100* file.terms.metrics[metricDiscount2].schema.maximum-1)+1)/100;
+            valueCondition2 = (Math.floor(Math.random() *100* sla.terms.metrics[metricDiscount2].schema.maximum-1)+1)/100;
         }
 
         let valueCondition3 = 0;
         if(unitMetric3 == "%"){
             valueCondition3 = (Math.floor(Math.random() * 9800) +1)/100;
         }else{
-            valueCondition3 = (Math.floor(Math.random() *100* file.terms.metrics[metricDiscount4].schema.maximum-1)+1)/100;
+            valueCondition3 = (Math.floor(Math.random() *100* sla.terms.metrics[metricDiscount4].schema.maximum-1)+1)/100;
         }
 
         let valueCondition4 = 0;
         if(unitMetric4 == "%"){
             valueCondition4 = (Math.floor(Math.random() * 9800) +1)/100;
         }else{
-            valueCondition4 = (Math.floor(Math.random() *100* file.terms.metrics[metricDiscount5].schema.maximum-1)+1)/100;
+            valueCondition4 = (Math.floor(Math.random() *100* sla.terms.metrics[metricDiscount5].schema.maximum-1)+1)/100;
         }
 
 
         if(unitMetric == "%"){
             valueCondition = (Math.floor(Math.random() * 9800) +1)/100;
         }else{
-            valueCondition = (Math.floor(Math.random() *100* file.terms.metrics[metricDiscount].schema.maximum-1)+1)/100;
+            valueCondition = (Math.floor(Math.random() *100* sla.terms.metrics[metricDiscount].schema.maximum-1)+1)/100;
         }
 
         if(argv.complexity == "complex"){
 
           var newDiscount = {
             value: Math.floor(Math.random() * 24)+1,
-            condition: "(" + metricDiscount + operator + metricDiscount2 + " " + comparator + " " + valueCondition + operator2 + valueCondition2 + " " + comparator2 + " " + metricDiscount3 + ") " + conector + "(" + metricDiscount4 + operator3 + metricDiscount5 + " " + comparator3 + " " + valueCondition3 + operator4 + valueCondition4 + " " + comparator4 + " " + metricDiscount6 + ") "
+            condition: "(" + metricDiscount + operator + metricDiscount2 + " " + comparator + " " + valueCondition +
+             operator2 + valueCondition2 + " " + comparator2 + " " + metricDiscount3 + ") " + conector +
+              "(" + metricDiscount4 + operator3 + metricDiscount5 + " " + comparator3 + " " + valueCondition3 +
+               operator4 + valueCondition4 + " " + comparator4 + " " + metricDiscount6 + ") "
               
           }
         }else if(argv.complexity == "medium"){
           var newDiscount = {
             value: Math.floor(Math.random() * 24)+1,
-            condition: metricDiscount + operator + metricDiscount2 + " " + comparator + " " + valueCondition + operator2 + valueCondition2 + " " + comparator2 + " " + metricDiscount3
+            condition: metricDiscount + operator + metricDiscount2 + " " + comparator + " " + valueCondition
+             + operator2 + valueCondition2 + " " + comparator2 + " " + metricDiscount3
               
           }
         }else{
@@ -179,13 +215,14 @@ if (argv._.includes('generateYaml')) {
         }
 
 
-        file.terms.pricing.billing.rewards[0].of.push(newDiscount);
+        sla.terms.pricing.billing.rewards[0].of.push(newDiscount);
     }
-
+    
     for(i= 0; i<argv.guarantees; i++){
         let metricGuarantee = newMetrics[Math.floor(Math.random() * newMetrics.length)];
-        let maximumMetric = file.terms.metrics[metricGuarantee].schema.maximum;
-        let unitMetric = file.terms.metrics[metricGuarantee].schema.unit;
+        let maximumMetric = sla.terms.metrics[metricGuarantee].schema.maximum;
+        
+        let unitMetric = sla.terms.metrics[metricGuarantee].schema.unit;
         let valorGuarantee1 = 0;
         let valorGuarantee2 = 0;
         let valorGuarantee3 = 0;
@@ -249,36 +286,29 @@ if (argv._.includes('generateYaml')) {
               }
             ]
           }
-          file.terms.guarantees.push(newGuarantee);
+          sla.terms.guarantees.push(newGuarantee);
     }
 
-    let fileYaml = conversor.stringify(file);
+    let slaYaml = conversor.stringify(sla);
 
-    let yamlStr = yaml.safeDump(fileYaml);
-    fs.writeFileSync('PoetisaSLA.yml', yamlStr.slice(7, yamlStr.length), 'utf8');
-    fs.writeFileSync('PoetisaSLA.json', JSON.stringify(file), 'utf8');
-  });
-    
-}
+    let yamlStr = yaml.safeDump(slaYaml);
+    fs.writeFileSync('SLAs/PoetisaSLA_' + argv.prefixMetrics + '.yml', yamlStr.slice(7, yamlStr.length), 'utf8');
 
-// Collection Generator------------------------------------------------------------------------------------------------------
 
-if (argv._.includes('generateCollection')) {
 
-  fs.readFile('PoetisaSLA.json', (err, data) => {
-    if(err) throw err;
-    var file = JSON.parse(data);
+
+//Collection Generator -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     fs.readFile('bases/baseCollection.json', (err, data) => {
       if(err) throw err;
-      let file3 = JSON.parse(data);
+      postRequest = JSON.parse(data);
       let max= 0;
-      let billings = file.terms.pricing.billing.rewards[0].of;
+      let billings = sla.terms.pricing.billing.rewards[0].of;
       let current_billing;
-      let guarantees2 = file.terms.guarantees;
+      let guarantees2 = sla.terms.guarantees;
       let current_guarantee;
-      for(m in file.terms.metrics){
-        me = file.terms.metrics[m];
+      for(m in sla.terms.metrics){
+        me = sla.terms.metrics[m];
         
         if(me.schema.unit == "%"){
           max = 100;
@@ -295,78 +325,139 @@ if (argv._.includes('generateCollection')) {
           },
           computer: "http://localhost:5001/api/v3/generated/"+m
         }
-        file3.terms.metrics[m] = met;
+        postRequest.terms.metrics[m] = met;
       }
 
       for(i=0; i< billings.length; i++){
         current_billing = billings[i];
         //current_billing["$$hashKey"] = "object:"+ (i+5);
         current_billing["value"] = current_billing["value"].toString();
-        file3.terms.pricing.billing.rewards[0].of.push(current_billing);
+        postRequest.terms.pricing.billing.rewards[0].of.push(current_billing);
         
       }
 
       for(i=0; i< guarantees2.length; i++){
         current_guarantee = guarantees2[i];
-        file3.terms.guarantees.push(current_guarantee);
+        postRequest.terms.guarantees.push(current_guarantee);
       }
       fs.readFile('bases/Poetisa.baseCollection.json', (err, data) => {
         if(err) throw err;
-        let file4 = JSON.parse(data);
+        requestCollection = JSON.parse(data);
 
-        file4.item[0].request.body.raw = JSON.stringify(file3);
-        fs.writeFileSync('Poetisa.collection.json', JSON.stringify(file4), 'utf8');
+        requestCollection.item[0].request.body.raw = JSON.stringify(postRequest);
+        fs.writeFileSync('SLAs/Poetisa.collection_'+argv.prefixMetrics+'.json', JSON.stringify(requestCollection), 'utf8');
       });
     });
-  });
-}
 
-if (argv._.includes('generateDataset')) {
-  fs.readFile('PoetisaSLA.yml', (err, data) => {
-    if(err) throw err;
-    let file = yaml.load(data);
-    let fileJson = JSON.parse( JSON.stringify(file));
 
-    var records = [];
+
+
+//Data Generator ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
     var body = "";
     var timeJump = 37328400000000000/ (argv.number_values - 1);
     var j = 0;
     var is_percentage = false;
     var metric_value = 0;
+    var bodies = [];
 
-    if(argv.restart == "true"){
-      restartDB();
-    }
-    
-    for( m in fileJson.terms.metrics){
-      metric = fileJson.terms.metrics[m];
-      is_percentage = metric.schema.unit == "%";
-      j++;
-      for(i=0; i<argv.number_values; i++){
-        
-        if(is_percentage){
-          metric_value = randomNormal({mean: argv.mean, dev: argv.deviation}).toFixed(2)
-        }else{
-          metric_value = randomNormal({mean: (metric.schema.maximum/100) * argv.mean, dev: (metric.schema.maximum/100)* argv.deviation}).toFixed(2);
-        }
-        if(metric_value < 0){
-          metric_value = 0;
-        }
-        body +=
-              argv.prefix + "_M-" + j +
-              ",namespace_name=default,cluster_name=default,labels=mysql,type=pod,pod_name=moodle-rc-11700317 value=" +
-              metric_value + " " +
-              Math.floor(timeJump * i + 1473199200000000000) + "\n";
+
+    new Promise(function (resolve, reject) {
+      if(argv.restart == "true"){
+        restartDB().then(() =>{return resolve()});
+      }else{
+        return resolve();
       }
+    }).then(()=> {
+      new Promise(function (resolve, reject) {
+        for( m in sla.terms.metrics){
+          metric = sla.terms.metrics[m];
+          is_percentage = metric.schema.unit == "%";
+          j++;
+  
+          for(i=0; i<argv.number_values; i++){
+            
+            if(is_percentage){
+              metric_value = randomNormal({mean: argv.mean, dev: argv.deviation}).toFixed(2)
+            }else{
+              metric_value = randomNormal({mean: (metric.schema.maximum/100) * argv.mean, dev: (metric.schema.maximum/100)* argv.deviation})
+              .toFixed(2);
+            }
+            if(metric_value < 0){
+              metric_value = 0;
+            }
+    
+            body +=
+                  //argv.prefixData + "_M-" + j +
+                  "generated_" + argv.prefixMetrics + "_" + j +
+                  ",namespace_name=default,cluster_name=default,labels=mysql,type=pod,pod_name=moodle-rc-11700317 value=" +
+                  metric_value + " " +
+                  Math.floor(timeJump * i + 1473199200000000000) + "\n";
+                
+            }    
+          if(j % 16 == 0 || j == argv.metrics)  {
+              bodies.push(body);
+              body = "";
+          }  
+        
+        }
+        console.log(bodies.length);
+        var cont = 0;
+        for(b= 0; b<bodies.length; b++){
+          setTimeout(() => {
+            if(cont==bodies.length -1 ){
+              apiWriteInflux(bodies[cont]).then(() =>{return resolve()});
+
+            }else{
+
+              apiWriteInflux(bodies[cont]);
+            }
+            cont++;
+          }, 2000*(b+1));
+        }
+      }).then(() =>{
+
+
+        newman.run({
+          collection: requestCollection,
+          iterationCount: argv.iterations
+        }).on('start', function (err, args) { // on start of run, log to console
+          console.log('running a collection...');
+        }).on('done', function (err, summary) {
+          if (err || summary.error) {
+              console.error('collection run encountered an error.');
+          }
+          else {
+            records.push(
+              {numberMetrics: argv.metrics,  numberDiscounts: argv.discounts,  numberGuarantees: argv.guarantees,
+              Complexity: argv.complexity,  entriesPerMetric: argv.number_values,  responseAverage: summary.run.timings.responseAverage.toString(),
+              responseMin: summary.run.timings.responseMin.toString(),  responseMax: summary.run.timings.responseMax.toString(),
+              responseSd: summary.run.timings.responseSd.toFixed(2).toString(), dataReceived: summary.run.transfers.responseTotal.toString(),
+              numberIterations: argv.iterations}
+            );
+          }
       
-    }
-
-  setTimeout(() => {
-    apiWriteInflux(body);
-    }, 2000);
-
+        csvWriter.writeRecords(records)
+        .then(() => {
+            console.log('...Done');
+          });
+        });
+      });
+    });
   });
 }
+
+
+
+//Collection Runner and CSV Writer ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
 
 
 function restartDB() {
@@ -377,10 +468,13 @@ function restartDB() {
       port: 30086,
       database: "_internal"
     });
-    o.dropDatabase('k8s');
-    setTimeout(() => {
-      o.createDatabase('k8s');
-    }, 1000);
+    o.dropDatabase('k8s').then(()=>{
+      o.createDatabase('k8s').then(()=>{
+        return resolve();
+      });
+    });
+      
+
   });
   
 }
