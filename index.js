@@ -62,9 +62,14 @@ const argv = yargs
           alias: 'ge',
           type: 'string',
         },
-        iterations: {
-          description: 'number of times the collection will be run',
+        iterationsCollection: {
+          description: 'number of times the collection will be run per newman call',
           alias: 'i',
+          type: 'number',
+        },
+        newmanCalls: {
+          description: 'number of parallel newman calls',
+          alias: 'ne',
           type: 'number',
         }
       }
@@ -409,12 +414,13 @@ if (argv._.includes('generateExperiment')) {
         // Data will only be generated if specified
         
         if(argv.generateData == "true"){
-  
+          
           console.log("Starting the Data Generator.......");
 
           //Declaration of variables to use
           var body = "";
           var numberOfEntries = 0;
+          var numberOfMetrics = 0;
           var is_percentage = false;
           var metric_value = 0;
           var bodies = [];
@@ -432,51 +438,60 @@ if (argv._.includes('generateExperiment')) {
             metric = sla.terms.metrics[m];
             currentMax = metric.schema.maximum;
             is_percentage = metric.schema.unit == "%";
+            numberOfMetrics++;
   
-          for(i=0; i<argv.number_values; i++){
-            numberOfEntries++;
-            
-            // For each entrie a value is calculated with a normal
-            if(is_percentage){
-              // If the metric is % the value will be a normal calculated with the mean and deviation given which are already in %
-              metric_value = randomNormal({mean: argv.mean, dev: argv.deviation}).toFixed(2)
-            }else{
-              // If the metric is not % the value will be a normal calculated with the normalised value of the maximum of the metric
-              // multiplied by the mean and deviation respectively
-              metric_value = randomNormal({mean: (metric.schema.maximum/100) * argv.mean, dev: (metric.schema.maximum/100)* argv.deviation})
-              .toFixed(2);
-            }
-  
-            // Checking if any value is off parameters and correcting it if necessary
-            if(metric_value < 0){
-              metric_value = 0;
-            }else if(!is_percentage && metric_value > currentMax){
-              metric_value = metric.schema.maximum;
-            }else if(is_percentage && metric_value > 100){
-              metric_value = 100;
-            }
+            for(i=0; i<argv.number_values; i++){
+              numberOfEntries++;
+              
+              // For each entrie a value is calculated with a normal
+              if(is_percentage){
+                // If the metric is % the value will be a normal calculated with the mean and deviation given which are already in %
+                metric_value = randomNormal({mean: argv.mean, dev: argv.deviation}).toFixed(2)
+              }else{
+                // If the metric is not % the value will be a normal calculated with the normalised value of the maximum of the metric
+                // multiplied by the mean and deviation respectively
+                metric_value = randomNormal({mean: (metric.schema.maximum/100) * argv.mean, dev: (metric.schema.maximum/100)* argv.deviation})
+                .toFixed(2);
+              }
     
-            // Adding the new entry to the current body
-            body +=
-                  "generated_" + argv.prefixMetrics + "_" + numberOfEntries +
-                  ",namespace_name=default,cluster_name=default,labels=mysql,type=pod,pod_name=moodle-rc-11700317 value=" +
-                  metric_value + " " +
-                  // Time in nanoseconds of the entry to have in the database, 1473199200000000000 is the time in nanoseconds of the begining
-                  // of the temporal window used
-                  Math.floor(timeJump * i + 1473199200000000000) + "\n";
+              // Checking if any value is off parameters and correcting it if necessary
+              if(metric_value < 0){
+                metric_value = 0;
+              }else if(!is_percentage && metric_value > currentMax){
+                metric_value = metric.schema.maximum;
+              }else if(is_percentage && metric_value > 100){
+                metric_value = 100;
+              }
+      
+              // Adding the new entry to the current body
+              body +=
+                    "generated_" + argv.prefixMetrics + "_" + numberOfMetrics +
+                    ",namespace_name=default,cluster_name=default,labels=mysql,type=pod,pod_name=moodle-rc-11700317 value=" +
+                    metric_value + " " +
+                    // Time in nanoseconds of the entry to have in the database, 1473199200000000000 is the time in nanoseconds of the begining
+                    // of the temporal window used
+                    Math.floor(timeJump * i + 1473199200000000000) + "\n";
+                  
+  
+              // As the database can't manage a single Post with too many entries, every 112500 entries or at the last entrie,
+              // the current body will be saved and then reseted as to make as many Posts as bodies we have at the end.
+              // Doing it this way will prevent an overload in the database
+              if(numberOfEntries % 112500 == 0 || numberOfEntries == argv.metrics*argv.number_values)  {
+                bodies.push(body);
+                body = "";
                 
-
-            // As the database can't manage a single Post with too many entries, every 112500 entries or at the last entrie,
-            // the current body will be saved and then reseted as to make as many Posts as bodies we have at the end.
-            // Doing it this way will prevent an overload in the database
-            if(numberOfEntries % 112500 == 0 || numberOfEntries == argv.metrics*argv.number_values)  {
-              bodies.push(body);
-              body = "";
-            }  
-          } 
+              }  
+            } 
+            
+          }
+          if( argv.metrics*argv.number_values < 4000000){
+            let datasetFile = './' + argv.prefixMetrics + '_TimeStamp/Dataset_'+argv.prefixFiles+'_'+numberOfEntries+'_Entries.csv';
+            console.log("Writing dataset in "+datasetFile+" .......");
+            fs.writeFileSync(datasetFile, bodies.reduce((a,b) => a+b),'utf8');
+          }else{
+            console.log("---Data too long to export to CSV, please reduce either the number of metrics or the number of entries per metric---");
+          }
           
-        }
-    
           console.log(bodies.length + " sets of data generated, posting them to InfluxDB......");
           // Lastly each of the bodies we have will be posted to the DB with 2s between Posts as not to overload the DB
           var cont = 0;
@@ -488,6 +503,7 @@ if (argv._.includes('generateExperiment')) {
                 // At the last body we resolve the promise to let it know that we finished
                 apiWriteInflux(bodies[cont]).then(() =>{
                   console.log(".............All data posted to InfluxDB");
+                  bodies = [];
                   return resolve();
                 });
     
@@ -501,6 +517,7 @@ if (argv._.includes('generateExperiment')) {
             }, 2000*(b+1));
     
           }
+          
         }else{
           console.log("New data won't be generated.........");
           return resolve();
@@ -509,43 +526,61 @@ if (argv._.includes('generateExperiment')) {
       //Collection Runner and CSV Writer ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   
         //Once all the data is in the DB, a newman.run will be launch with the collection previously generated
-        newman.run({
-          collection: requestCollection,
-          iterationCount: argv.iterations // As many  iterations as indicated
-        }).on('start', function (err, args) { // on start of run, log to console
-          console.log('Running a collection......');
-        }).on('done', function (err, summary) {
-          if (err || summary.error) {
-              console.error('collection run encountered an error.');
-          }else {
-            
-            var pathToCSV = './' + argv.prefixMetrics + '_TimeStamp/Experiment_'+argv.prefixMetrics+'.csv';
-            console.log("Writing results to " + pathToCSV + " .......");
-            
-            fs.readFile(pathToCSV, (err, data) => {
-              if(err){
-  
-                var newData = "NUMBER_METRICS,NUMBER_DISCOUNTS,NUMBER_GUARANTEES,COMPLEXITY,ENTIRES_PER_METRIC,RESPONSE_AVG,"+
-                "RESPONSE_MIN,RESPONSE_MAX,RESPONSE_SD,BYTES_RECEIVED,NUMBER_ITERATIONS\n"+
-                argv.metrics+","+argv.discounts+","+argv.guarantees+","+argv.complexity+","+argv.number_values+","+
-                summary.run.timings.responseAverage.toString()+","+summary.run.timings.responseMin.toString()+","+
-                summary.run.timings.responseMax.toString()+","+summary.run.timings.responseSd.toFixed(2).toString()+","+
-                summary.run.transfers.responseTotal.toString()+","+argv.iterations+"\n";
-  
-              }else{
-  
-                // Once we have the results of newman.run in 'summary', we push it to 'records'
-                  var newData = data + argv.metrics+","+argv.discounts+","+argv.guarantees+","+argv.complexity+","+argv.number_values+","+
-                summary.run.timings.responseAverage.toString()+","+summary.run.timings.responseMin.toString()+","+
-                summary.run.timings.responseMax.toString()+","+summary.run.timings.responseSd.toFixed(2).toString()+","+
-                summary.run.transfers.responseTotal.toString()+","+argv.iterations+"\n";
-              }
+
+        var pathToCSV = './' + argv.prefixMetrics + '_TimeStamp/Experiment_'+argv.prefixMetrics+'.csv';
+        var newData = "";
+        var contCollections = 0;
+        
+        console.log('Running '+argv.newmanCalls+' collections, '+argv.iterationsCollection+' times each .......');
+
+        for(i=0; i< argv.newmanCalls; i++){
+
+          newman.run({
+            collection: requestCollection,
+            iterationCount: argv.iterationsCollection // As many  iterations as indicated
+          }).on('done', function (err, summary) {
+            if (err || summary.error) {
+                console.error('collection run encountered an error.');
+            }else {
+              setTimeout(() => {
               
-              fs.writeFileSync(pathToCSV, newData,'utf8');
-              console.log("Script finished.........");
-            });
-          }
-        });
+                fs.readFile(pathToCSV, (err, data) => {
+                  if(err){
+  
+                    let header =
+                     "NUMBER_METRICS,NUMBER_DISCOUNTS,NUMBER_GUARANTEES,COMPLEXITY,ENTIRES_PER_METRIC,RESPONSE_AVG,"+
+                    "RESPONSE_MIN,RESPONSE_MAX,RESPONSE_SD,BYTES_RECEIVED,NUMBER_COLLECTIONS,NUMBER_ITERATIONS\n"+
+                    argv.metrics+","+argv.discounts+","+argv.guarantees+","+argv.complexity+","+argv.number_values+","+
+                    summary.run.timings.responseAverage.toFixed(2).toString()+","+summary.run.timings.responseMin.toString()+","+
+                    summary.run.timings.responseMax.toString()+","+summary.run.timings.responseSd.toFixed(2).toString()+","+
+                    summary.run.transfers.responseTotal.toString()+","+argv.newmanCalls+","+argv.iterationsCollection+"\n";
+  
+                    fs.writeFileSync(pathToCSV, header ,'utf8');
+                  }else{
+                    
+                    // Once we have the results of newman.run in 'summary', we push it to 'records'
+                    if(newData == ""){
+                      newData = data;
+                    }
+                    newData += argv.metrics+","+argv.discounts+","+argv.guarantees+","+argv.complexity+","+argv.number_values+","+
+                    summary.run.timings.responseAverage.toFixed(2).toString()+","+summary.run.timings.responseMin.toString()+","+
+                    summary.run.timings.responseMax.toString()+","+summary.run.timings.responseSd.toFixed(2).toString()+","+
+                    summary.run.transfers.responseTotal.toString()+","+argv.newmanCalls+","+argv.iterationsCollection+"\n";
+  
+                  }
+                    contCollections++;
+  
+                  if(contCollections == argv.newmanCalls){
+                    if(newData.length > 0){
+                      fs.writeFileSync(pathToCSV, newData,'utf8');
+                    }
+                    console.log("All running collections finished, results written in " + pathToCSV + " .......");
+                  }
+                });
+              }, 100* (contCollections +1));
+            }
+          });
+        }
       });
     });
   });
