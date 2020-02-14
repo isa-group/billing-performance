@@ -87,9 +87,21 @@ if (argv._.includes('generateExperiment')) {
   if(!fs.existsSync(argv.prefixMetrics + "_TimeStamp")){
     fs.mkdirSync(argv.prefixMetrics + "_TimeStamp");
   }
+  if(!fs.existsSync(argv.prefixMetrics + "_TimeStamp/Datasets")){
+    fs.mkdirSync(argv.prefixMetrics + "_TimeStamp/Datasets");
+  }
+  if(!fs.existsSync(argv.prefixMetrics + "_TimeStamp/SLAs")){
+    fs.mkdirSync(argv.prefixMetrics + "_TimeStamp/SLAs");
+  }
+  if(!fs.existsSync(argv.prefixMetrics + "_TimeStamp/Collections")){
+    fs.mkdirSync(argv.prefixMetrics + "_TimeStamp/Collections");
+  }
+  if(!fs.existsSync(argv.prefixMetrics + "_TimeStamp/Results")){
+    fs.mkdirSync(argv.prefixMetrics + "_TimeStamp/Results");
+  }
 
   new Promise(function (resolve, reject) {
-    fs.readFile(argv.prefixMetrics + '_TimeStamp/PoetisaSLA_' + argv.prefixFiles + '.yml', (err, data) => {
+    fs.readFile(argv.prefixMetrics + '_TimeStamp/SLAs/PoetisaSLA_' + argv.prefixFiles + '.yml', (err, data) => {
       if(err){
 
         console.log("Starting the SLA generator.........")
@@ -315,9 +327,9 @@ if (argv._.includes('generateExperiment')) {
           let slaYaml = conversor.stringify(sla);
           let yamlStr = yaml.safeDump(slaYaml);
       
-          fs.writeFileSync(argv.prefixMetrics+'_TimeStamp/PoetisaSLA_' + argv.prefixFiles + '.yml', yamlStr.slice(7, yamlStr.length), 'utf8');
+          fs.writeFileSync(argv.prefixMetrics+'_TimeStamp/SLAs/PoetisaSLA_' + argv.prefixFiles + '.yml', yamlStr.slice(7, yamlStr.length), 'utf8');
       
-          console.log(".....SLA finished and writen in "+argv.prefixMetrics+"_TimeStamp/PoetisaSLA_" + argv.prefixFiles + ".yml");
+          console.log(".....SLA finished and writen in "+argv.prefixMetrics+"_TimeStamp/SLAs/PoetisaSLA_" + argv.prefixFiles + ".yml");
 
           return resolve();
         });
@@ -331,7 +343,7 @@ if (argv._.includes('generateExperiment')) {
   }).then(() =>{
 
     new Promise(function (resolve, reject) {
-      fs.readFile(argv.prefixMetrics + '_TimeStamp/Poetisa.collection_'+argv.prefixFiles+'.json', (err, data) => {
+      fs.readFile(argv.prefixMetrics + '_TimeStamp/Collections/Poetisa.collection_'+argv.prefixFiles+'.json', (err, data) => {
         if(err){
           
           //Collection Generator -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -393,8 +405,8 @@ if (argv._.includes('generateExperiment')) {
               // Adding the request generated to the collection
               requestCollection.item[0].request.body.raw = JSON.stringify(postRequest);
               // Writting the new collection
-              fs.writeFileSync(argv.prefixMetrics + '_TimeStamp/Poetisa.collection_'+argv.prefixFiles+'.json', JSON.stringify(requestCollection), 'utf8');
-              console.log(".....Collection finished and writen in "+ argv.prefixMetrics +"_TimeStamp/Poetisa.collection_"+argv.prefixFiles+".json");
+              fs.writeFileSync(argv.prefixMetrics + '_TimeStamp/Collections/Poetisa.collection_'+argv.prefixFiles+'.json', JSON.stringify(requestCollection), 'utf8');
+              console.log(".....Collection finished and writen in "+ argv.prefixMetrics +"_TimeStamp/Collections/Poetisa.collection_"+argv.prefixFiles+".json");
               return resolve();
             });
           });
@@ -425,6 +437,9 @@ if (argv._.includes('generateExperiment')) {
           var metric_value = 0;
           var bodies = [];
           var currentMax = 0;
+          var datasetFile = "";
+          var csvCount = 0;
+          var numberEntriesCsv = 0;
 
           // This variable has the nanoseconds between the value of the times of each entry in the database
           // We always use the same temporal windows with a difference in nanoseconds between the first and last instant being 37328400000000000
@@ -472,7 +487,7 @@ if (argv._.includes('generateExperiment')) {
                     // of the temporal window used
                     Math.floor(timeJump * i + 1473199200000000000) + "\n";
                   
-  
+
               // As the database can't manage a single Post with too many entries, every 112500 entries or at the last entrie,
               // the current body will be saved and then reseted as to make as many Posts as bodies we have at the end.
               // Doing it this way will prevent an overload in the database
@@ -481,15 +496,31 @@ if (argv._.includes('generateExperiment')) {
                 body = "";
                 
               }  
+              if(numberOfEntries % 450000 == 0 || numberOfEntries == argv.metrics*argv.number_values)  {
+
+                let csvBody = "NUMBER_METRICS,NUMBER_DISCOUNTS,NUMBER_GUARANTEES,COMPLEXITY,ENTIRES_PER_METRIC,RESPONSE_AVG,"+
+                  "RESPONSE_MIN,RESPONSE_MAX,RESPONSE_SD,BYTES_RECEIVED,NUMBER_COLLECTIONS,NUMBER_ITERATIONS\n";
+                let numberBodiesToAdd = 0;
+
+                if(numberOfEntries % 450000 == 0){
+                  numberBodiesToAdd = 4;
+                  numberEntriesCsv = 450000;
+                }else{
+                  numberBodiesToAdd = Math.floor( ((numberOfEntries % 450000)/112500) +1);
+                  numberEntriesCsv = numberOfEntries % 450000;
+                }
+                for(j = 0;j<numberBodiesToAdd;j++){
+                  csvBody += bodies[j + (csvCount*4)];
+                }
+            
+                csvCount++;
+
+                datasetFile = './' + argv.prefixMetrics + '_TimeStamp/Datasets/Dataset_'+argv.prefixFiles+'_'+numberEntriesCsv+'_Entries_'+csvCount+'.csv';
+                console.log("Writing dataset in "+datasetFile+" .......");
+                fs.writeFileSync(datasetFile, csvBody,'utf8');
+              }
             } 
             
-          }
-          if( argv.metrics*argv.number_values < 4000000){
-            let datasetFile = './' + argv.prefixMetrics + '_TimeStamp/Dataset_'+argv.prefixFiles+'_'+numberOfEntries+'_Entries.csv';
-            console.log("Writing dataset in "+datasetFile+" .......");
-            fs.writeFileSync(datasetFile, bodies.reduce((a,b) => a+b),'utf8');
-          }else{
-            console.log("---Data too long to export to CSV, please reduce either the number of metrics or the number of entries per metric---");
           }
           
           console.log(bodies.length + " sets of data generated, posting them to InfluxDB......");
@@ -527,7 +558,7 @@ if (argv._.includes('generateExperiment')) {
   
         //Once all the data is in the DB, a newman.run will be launch with the collection previously generated
 
-        var pathToCSV = './' + argv.prefixMetrics + '_TimeStamp/Experiment_'+argv.prefixMetrics+'.csv';
+        var pathToCSV = './' + argv.prefixMetrics + '_TimeStamp/Results/Experiment_'+argv.prefixMetrics+'.csv';
         var newData = "";
         var contCollections = 0;
         

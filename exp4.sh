@@ -4,7 +4,7 @@
 echo "##### STARTING EXPERIMENT NUMBER 4: NUMBER OF PARALLEL POSTS INCREASED EXPONENTIALLY #####"
 
 ./resetDB.sh
-echo ================ ITERATION NUMBER 1: 2 PARALLEL POSTMAN POSTS ================
+echo ================ ITERATION NUMBER 1: 1 PARALLEL POSTMAN POST ================
 ./runComputation.sh 64 64 64 medium exp4 7500 50 20 exp4 true 1 1
 for i in $(seq 2 11); do
                                                                 

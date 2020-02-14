@@ -1,0 +1,3460 @@
+
+    id: "ANS-POETISA"
+    version: "1.0"
+    type: "agreement"
+    context: 
+      iAgree: "2.0"
+      provider: "https://www.isotrol.com/"
+      consumer: "http://www.juntadeandalucia.es/"
+      validity: 
+        timeZone: "Europe/Madrid"
+        initial: "2018-05-01T00:00:00.000Z"
+      definitions: 
+        schemas: 
+          BillingDiscount: 
+            description: "Percentage to be discounted at the next monthly bill"
+            type: "double"
+            unit: "%"
+        scopes: 
+          node: 
+            name: "Node"
+            description: "identifier for a node in the platform"
+            type: "string"
+          impact: 
+            name: "Impact"
+            description: "the impact of the node on the platform"
+            type: "string"
+      infrastructure: 
+        designer: "http://designer.governify.io"
+        billing: "http://pricing.governify.io/billing"
+    terms: 
+      pricing: 
+        currency: "EUR"
+        billing: 
+          period: "monthly"
+          initial: "2018-04-28T10:35:36.000Z"
+          rewards: 
+            - 
+              over: 
+                BillingDiscount: 
+                  $ref: "#/context/definitions/schemas/BillingDiscount"
+              aggregatedBy: "sum"
+              of: 
+                - 
+                  value: 6
+                  condition: "generated_exp1_124 <= 20.51"
+                - 
+                  value: 18
+                  condition: "generated_exp1_6 > 50"
+                - 
+                  value: 7
+                  condition: "generated_exp1_49 <= 8.46"
+                - 
+                  value: 11
+                  condition: "generated_exp1_93 > 1.54"
+                - 
+                  value: 3
+                  condition: "generated_exp1_38 < 10"
+                - 
+                  value: 14
+                  condition: "generated_exp1_70 <= 56.75"
+                - 
+                  value: 17
+                  condition: "generated_exp1_124 <= 9.82"
+                - 
+                  value: 11
+                  condition: "generated_exp1_40 <= 2.06"
+                - 
+                  value: 4
+                  condition: "generated_exp1_44 >= 29.95"
+                - 
+                  value: 17
+                  condition: "generated_exp1_14 > 4.95"
+                - 
+                  value: 24
+                  condition: "generated_exp1_50 < 46.23"
+                - 
+                  value: 22
+                  condition: "generated_exp1_61 > 48.84"
+                - 
+                  value: 16
+                  condition: "generated_exp1_51 < 7.69"
+                - 
+                  value: 1
+                  condition: "generated_exp1_49 >= 21.56"
+                - 
+                  value: 1
+                  condition: "generated_exp1_52 < 58.93"
+                - 
+                  value: 7
+                  condition: "generated_exp1_106 <= 48.4"
+                - 
+                  value: 6
+                  condition: "generated_exp1_75 >= 19.04"
+                - 
+                  value: 22
+                  condition: "generated_exp1_57 < 28.76"
+                - 
+                  value: 16
+                  condition: "generated_exp1_16 > 66.83"
+                - 
+                  value: 20
+                  condition: "generated_exp1_100 > 16.74"
+                - 
+                  value: 18
+                  condition: "generated_exp1_64 < 33.73"
+                - 
+                  value: 11
+                  condition: "generated_exp1_86 >= 9.59"
+                - 
+                  value: 2
+                  condition: "generated_exp1_127 > 16.86"
+                - 
+                  value: 21
+                  condition: "generated_exp1_11 > 7.46"
+                - 
+                  value: 8
+                  condition: "generated_exp1_97 >= 2.24"
+                - 
+                  value: 7
+                  condition: "generated_exp1_60 < 65.68"
+                - 
+                  value: 24
+                  condition: "generated_exp1_92 < 26.59"
+                - 
+                  value: 5
+                  condition: "generated_exp1_115 < 16.38"
+                - 
+                  value: 13
+                  condition: "generated_exp1_12 >= 0.54"
+                - 
+                  value: 19
+                  condition: "generated_exp1_39 <= 49.27"
+                - 
+                  value: 10
+                  condition: "generated_exp1_87 > 4.3"
+                - 
+                  value: 17
+                  condition: "generated_exp1_110 > 30.53"
+                - 
+                  value: 16
+                  condition: "generated_exp1_45 <= 32.49"
+                - 
+                  value: 18
+                  condition: "generated_exp1_60 > 25.32"
+                - 
+                  value: 7
+                  condition: "generated_exp1_12 > 0.22"
+                - 
+                  value: 6
+                  condition: "generated_exp1_57 > 28.46"
+                - 
+                  value: 5
+                  condition: "generated_exp1_33 < 1.15"
+                - 
+                  value: 5
+                  condition: "generated_exp1_101 < 70.88"
+                - 
+                  value: 13
+                  condition: "generated_exp1_85 < 76"
+                - 
+                  value: 17
+                  condition: "generated_exp1_65 >= 40.76"
+                - 
+                  value: 13
+                  condition: "generated_exp1_103 > 0.89"
+                - 
+                  value: 22
+                  condition: "generated_exp1_87 > 0.82"
+                - 
+                  value: 17
+                  condition: "generated_exp1_63 >= 0.74"
+                - 
+                  value: 1
+                  condition: "generated_exp1_96 >= 18.45"
+                - 
+                  value: 14
+                  condition: "generated_exp1_15 <= 5.36"
+                - 
+                  value: 3
+                  condition: "generated_exp1_50 <= 23.94"
+                - 
+                  value: 8
+                  condition: "generated_exp1_95 < 0"
+                - 
+                  value: 13
+                  condition: "generated_exp1_85 <= 94"
+                - 
+                  value: 1
+                  condition: "generated_exp1_2 > 13.82"
+                - 
+                  value: 22
+                  condition: "generated_exp1_10 < 15.02"
+                - 
+                  value: 6
+                  condition: "generated_exp1_84 < 20"
+                - 
+                  value: 9
+                  condition: "generated_exp1_71 > 62.12"
+                - 
+                  value: 5
+                  condition: "generated_exp1_107 <= 47.72"
+                - 
+                  value: 24
+                  condition: "generated_exp1_101 >= 19.75"
+                - 
+                  value: 1
+                  condition: "generated_exp1_120 < 55.25"
+                - 
+                  value: 3
+                  condition: "generated_exp1_65 > 44.23"
+                - 
+                  value: 10
+                  condition: "generated_exp1_64 <= 18.87"
+                - 
+                  value: 14
+                  condition: "generated_exp1_26 >= 0.95"
+                - 
+                  value: 16
+                  condition: "generated_exp1_57 > 33.64"
+                - 
+                  value: 2
+                  condition: "generated_exp1_45 < 1.14"
+                - 
+                  value: 13
+                  condition: "generated_exp1_98 <= 39.14"
+                - 
+                  value: 16
+                  condition: "generated_exp1_101 <= 7.2"
+                - 
+                  value: 13
+                  condition: "generated_exp1_3 <= 46.46"
+                - 
+                  value: 10
+                  condition: "generated_exp1_50 <= 44.27"
+      metrics: 
+        generated_exp1_1: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "TB"
+            minimum: 0
+            maximum: 76
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_1"
+        generated_exp1_2: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "KB"
+            minimum: 0
+            maximum: 22
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_2"
+        generated_exp1_3: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 80
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_3"
+        generated_exp1_4: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "GB"
+            minimum: 0
+            maximum: 87
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_4"
+        generated_exp1_5: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 60
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_5"
+        generated_exp1_6: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_6"
+        generated_exp1_7: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 86
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_7"
+        generated_exp1_8: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "KB"
+            minimum: 0
+            maximum: 81
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_8"
+        generated_exp1_9: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 54
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_9"
+        generated_exp1_10: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "PT"
+            minimum: 0
+            maximum: 50
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_10"
+        generated_exp1_11: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 26
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_11"
+        generated_exp1_12: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 1
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_12"
+        generated_exp1_13: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 40
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_13"
+        generated_exp1_14: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 20
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_14"
+        generated_exp1_15: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "KB"
+            minimum: 0
+            maximum: 9
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_15"
+        generated_exp1_16: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 75
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_16"
+        generated_exp1_17: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "KB"
+            minimum: 0
+            maximum: 82
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_17"
+        generated_exp1_18: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 11
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_18"
+        generated_exp1_19: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "PT"
+            minimum: 0
+            maximum: 72
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_19"
+        generated_exp1_20: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_20"
+        generated_exp1_21: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_21"
+        generated_exp1_22: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 6
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_22"
+        generated_exp1_23: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 94
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_23"
+        generated_exp1_24: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "PT"
+            minimum: 0
+            maximum: 24
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_24"
+        generated_exp1_25: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "KB"
+            minimum: 0
+            maximum: 64
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_25"
+        generated_exp1_26: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "KB"
+            minimum: 0
+            maximum: 8
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_26"
+        generated_exp1_27: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_27"
+        generated_exp1_28: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "TB"
+            minimum: 0
+            maximum: 35
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_28"
+        generated_exp1_29: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "GB"
+            minimum: 0
+            maximum: 44
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_29"
+        generated_exp1_30: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_30"
+        generated_exp1_31: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 90
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_31"
+        generated_exp1_32: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 78
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_32"
+        generated_exp1_33: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 23
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_33"
+        generated_exp1_34: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 81
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_34"
+        generated_exp1_35: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "GB"
+            minimum: 0
+            maximum: 64
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_35"
+        generated_exp1_36: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 36
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_36"
+        generated_exp1_37: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "TB"
+            minimum: 0
+            maximum: 63
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_37"
+        generated_exp1_38: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_38"
+        generated_exp1_39: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "KB"
+            minimum: 0
+            maximum: 57
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_39"
+        generated_exp1_40: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 11
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_40"
+        generated_exp1_41: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "GB"
+            minimum: 0
+            maximum: 99
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_41"
+        generated_exp1_42: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "TB"
+            minimum: 0
+            maximum: 78
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_42"
+        generated_exp1_43: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 38
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_43"
+        generated_exp1_44: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 45
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_44"
+        generated_exp1_45: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 36
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_45"
+        generated_exp1_46: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "KB"
+            minimum: 0
+            maximum: 78
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_46"
+        generated_exp1_47: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "PT"
+            minimum: 0
+            maximum: 4
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_47"
+        generated_exp1_48: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 30
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_48"
+        generated_exp1_49: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 40
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_49"
+        generated_exp1_50: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 76
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_50"
+        generated_exp1_51: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "PT"
+            minimum: 0
+            maximum: 19
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_51"
+        generated_exp1_52: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "GB"
+            minimum: 0
+            maximum: 70
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_52"
+        generated_exp1_53: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "TB"
+            minimum: 0
+            maximum: 29
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_53"
+        generated_exp1_54: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 69
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_54"
+        generated_exp1_55: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 71
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_55"
+        generated_exp1_56: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 53
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_56"
+        generated_exp1_57: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 37
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_57"
+        generated_exp1_58: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "TB"
+            minimum: 0
+            maximum: 71
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_58"
+        generated_exp1_59: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_59"
+        generated_exp1_60: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "GB"
+            minimum: 0
+            maximum: 70
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_60"
+        generated_exp1_61: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 76
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_61"
+        generated_exp1_62: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "GB"
+            minimum: 0
+            maximum: 19
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_62"
+        generated_exp1_63: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 1
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_63"
+        generated_exp1_64: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "PT"
+            minimum: 0
+            maximum: 35
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_64"
+        generated_exp1_65: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 57
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_65"
+        generated_exp1_66: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 15
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_66"
+        generated_exp1_67: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_67"
+        generated_exp1_68: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_68"
+        generated_exp1_69: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "KB"
+            minimum: 0
+            maximum: 28
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_69"
+        generated_exp1_70: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "GB"
+            minimum: 0
+            maximum: 63
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_70"
+        generated_exp1_71: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 70
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_71"
+        generated_exp1_72: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 92
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_72"
+        generated_exp1_73: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 66
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_73"
+        generated_exp1_74: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "PT"
+            minimum: 0
+            maximum: 39
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_74"
+        generated_exp1_75: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "TB"
+            minimum: 0
+            maximum: 83
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_75"
+        generated_exp1_76: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_76"
+        generated_exp1_77: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 32
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_77"
+        generated_exp1_78: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 3
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_78"
+        generated_exp1_79: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 98
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_79"
+        generated_exp1_80: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "KB"
+            minimum: 0
+            maximum: 69
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_80"
+        generated_exp1_81: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_81"
+        generated_exp1_82: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "PT"
+            minimum: 0
+            maximum: 30
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_82"
+        generated_exp1_83: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "KB"
+            minimum: 0
+            maximum: 45
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_83"
+        generated_exp1_84: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_84"
+        generated_exp1_85: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_85"
+        generated_exp1_86: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "GB"
+            minimum: 0
+            maximum: 10
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_86"
+        generated_exp1_87: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 6
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_87"
+        generated_exp1_88: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "KB"
+            minimum: 0
+            maximum: 85
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_88"
+        generated_exp1_89: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 21
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_89"
+        generated_exp1_90: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "KB"
+            minimum: 0
+            maximum: 85
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_90"
+        generated_exp1_91: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_91"
+        generated_exp1_92: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 49
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_92"
+        generated_exp1_93: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "GB"
+            minimum: 0
+            maximum: 11
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_93"
+        generated_exp1_94: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_94"
+        generated_exp1_95: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 54
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_95"
+        generated_exp1_96: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 20
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_96"
+        generated_exp1_97: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "TB"
+            minimum: 0
+            maximum: 3
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_97"
+        generated_exp1_98: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "GB"
+            minimum: 0
+            maximum: 80
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_98"
+        generated_exp1_99: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "GB"
+            minimum: 0
+            maximum: 15
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_99"
+        generated_exp1_100: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 51
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_100"
+        generated_exp1_101: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 83
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_101"
+        generated_exp1_102: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 80
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_102"
+        generated_exp1_103: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 7
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_103"
+        generated_exp1_104: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "PT"
+            minimum: 0
+            maximum: 49
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_104"
+        generated_exp1_105: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 95
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_105"
+        generated_exp1_106: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 85
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_106"
+        generated_exp1_107: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 56
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_107"
+        generated_exp1_108: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "PT"
+            minimum: 0
+            maximum: 22
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_108"
+        generated_exp1_109: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_109"
+        generated_exp1_110: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 55
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_110"
+        generated_exp1_111: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "GB"
+            minimum: 0
+            maximum: 88
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_111"
+        generated_exp1_112: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "PT"
+            minimum: 0
+            maximum: 47
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_112"
+        generated_exp1_113: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_113"
+        generated_exp1_114: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "PT"
+            minimum: 0
+            maximum: 2
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_114"
+        generated_exp1_115: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 18
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_115"
+        generated_exp1_116: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 24
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_116"
+        generated_exp1_117: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 35
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_117"
+        generated_exp1_118: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "TB"
+            minimum: 0
+            maximum: 16
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_118"
+        generated_exp1_119: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "GB"
+            minimum: 0
+            maximum: 66
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_119"
+        generated_exp1_120: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "TB"
+            minimum: 0
+            maximum: 93
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_120"
+        generated_exp1_121: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "KB"
+            minimum: 0
+            maximum: 79
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_121"
+        generated_exp1_122: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_122"
+        generated_exp1_123: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "KB"
+            minimum: 0
+            maximum: 96
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_123"
+        generated_exp1_124: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "EB"
+            minimum: 0
+            maximum: 21
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_124"
+        generated_exp1_125: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_125"
+        generated_exp1_126: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "MB"
+            minimum: 0
+            maximum: 52
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_126"
+        generated_exp1_127: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "B"
+            minimum: 0
+            maximum: 43
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_127"
+        generated_exp1_128: 
+          schema: 
+            descripcion: "Randomly generated metric"
+            type: "double"
+            unit: "%"
+          computer: "http://localhost:30500/api/v3/generated/generated_exp1_128"
+      guarantees: 
+        - 
+          id: "G_generated_exp1_50"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_50 >= 68.56"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_50 >= 41.86"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_50 >= 51.9"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_66"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_66 >= 10.03"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_66 >= 12.42"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_66 >= 10.74"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_65"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_65 >= 35.66"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_65 >= 34.230000000000004"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_65 >= 50.2"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_96"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_96 >= 17.53"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_96 >= 19.439999999999998"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_96 >= 12.58"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_116"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_116 >= 17.34"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_116 >= 23.32"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_116 >= 19.85"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_9"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_9 >= 50.33"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_9 >= 44.93"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_9 >= 36.519999999999996"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_61"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_61 >= 56.47"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_61 >= 39.78"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_61 >= 65.21000000000001"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_1"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_1 >= 52.57"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_1 >= 56.96"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_1 >= 64.5"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_24"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_24 >= 17.16"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_24 >= 13.73"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_24 >= 13.78"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_89"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_89 >= 14.370000000000001"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_89 >= 10.73"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_89 >= 19.75"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_125"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_125 >= 81.03999999999999"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_125 >= 79.14"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_125 >= 67.49"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_95"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_95 >= 43.69"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_95 >= 49.239999999999995"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_95 >= 36.95"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_79"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_79 >= 92.13"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_79 >= 55.16"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_79 >= 68.44"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_27"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_27 >= 60.15"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_27 >= 63.28"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_27 >= 70.28999999999999"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_34"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_34 >= 65.28999999999999"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_34 >= 59.47"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_34 >= 46.75"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_69"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_69 >= 20"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_69 >= 19.9"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_69 >= 24.2"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_65"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_65 >= 42.53"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_65 >= 40.21"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_65 >= 43.53"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_77"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_77 >= 25.09"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_77 >= 23.25"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_77 >= 17.79"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_71"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_71 >= 63.05"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_71 >= 64.47"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_71 >= 51.91"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_70"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_70 >= 35.28"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_70 >= 57.33"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_70 >= 45.07"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_31"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_31 >= 60.71"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_31 >= 64.63"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_31 >= 56.09"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_95"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_95 >= 37.37"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_95 >= 53.57"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_95 >= 46.510000000000005"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_49"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_49 >= 21.89"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_49 >= 37.64"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_49 >= 36.44"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_62"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_62 >= 15.129999999999999"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_62 >= 9.67"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_62 >= 12.85"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_68"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_68 >= 93.72"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_68 >= 73.25"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_68 >= 67.96000000000001"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_3"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_3 >= 76.89"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_3 >= 67.95"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_3 >= 49.09"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_38"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_38 >= 51.07"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_38 >= 65.99"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_38 >= 65.5"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_88"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_88 >= 70.17"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_88 >= 76.85"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_88 >= 64.78"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_115"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_115 >= 14.95"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_115 >= 14.32"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_115 >= 17.27"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_71"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_71 >= 38.35"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_71 >= 41.96"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_71 >= 69.36"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_15"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_15 >= 6.22"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_15 >= 7.41"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_15 >= 8.14"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_84"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_84 >= 58.08"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_84 >= 94.77000000000001"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_84 >= 83.35"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_61"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_61 >= 57.45"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_61 >= 46.29"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_61 >= 56.519999999999996"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_102"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_102 >= 78.55"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_102 >= 55.33"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_102 >= 54.7"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_43"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_43 >= 20.56"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_43 >= 22.84"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_43 >= 30.91"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_121"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_121 >= 65.57"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_121 >= 45.86"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_121 >= 77.47999999999999"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_61"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_61 >= 39.34"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_61 >= 44.61"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_61 >= 48.63"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_100"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_100 >= 38.87"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_100 >= 37.22"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_100 >= 44.739999999999995"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_42"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_42 >= 64.66"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_42 >= 46.29"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_42 >= 44.63"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_111"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_111 >= 77.12"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_111 >= 85.58"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_111 >= 64.09"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_117"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_117 >= 28.43"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_117 >= 30.82"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_117 >= 26.119999999999997"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_10"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_10 >= 26.33"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_10 >= 49.769999999999996"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_10 >= 30.52"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_18"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_18 >= 9.14"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_18 >= 7.2"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_18 >= 9.629999999999999"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_67"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_67 >= 75.14"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_67 >= 61.15"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_67 >= 95.71000000000001"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_95"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_95 >= 50.45"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_95 >= 53.79"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_95 >= 43.15"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_33"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_33 >= 22.28"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_33 >= 21.89"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_33 >= 19.759999999999998"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_118"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_118 >= 10.27"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_118 >= 13.55"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_118 >= 14.14"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_107"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_107 >= 32.7"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_107 >= 39.71"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_107 >= 43.53"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_40"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_40 >= 8.97"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_40 >= 9.07"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_40 >= 9.940000000000001"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_49"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_49 >= 39.120000000000005"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_49 >= 38.79"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_49 >= 22.92"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_62"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_62 >= 18.79"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_62 >= 10.04"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_62 >= 16.17"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_27"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_27 >= 70.07"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_27 >= 60.5"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_27 >= 88.96000000000001"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_34"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_34 >= 79.27000000000001"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_34 >= 43.39"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_34 >= 40.9"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_101"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_101 >= 43.61"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_101 >= 43.12"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_101 >= 54.78"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_88"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_88 >= 83.1"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_88 >= 59.879999999999995"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_88 >= 77.53999999999999"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_106"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_106 >= 74.71000000000001"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_106 >= 68.05"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_106 >= 52.78"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_124"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_124 >= 19.310000000000002"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_124 >= 11.75"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_124 >= 20.72"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_123"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_123 >= 83.71000000000001"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_123 >= 61.83"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_123 >= 66.8"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_82"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_82 >= 28.53"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_82 >= 29.36"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_82 >= 21.8"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_100"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_100 >= 41.19"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_100 >= 44.95"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_100 >= 37.08"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_12"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_12 >= 0.5"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_12 >= 0.95"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_12 >= 0.55"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_112"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_112 >= 36.21"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_112 >= 30.85"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_112 >= 39.21"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_109"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_109 >= 95.43"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_109 >= 63.93"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_109 >= 50.61"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+        - 
+          id: "G_generated_exp1_97"
+          scope: 
+            priority: 
+              $ref: "#/context/definitions/scopes/impact"
+            node: 
+              $ref: "#/context/definitions/scopes/node"
+          of: 
+            - 
+              scope: 
+                node: "k-master, k-mysql, k-nfs, k-proxy"
+                impact: "high"
+              objective: "generated_exp1_97 >= 1.87"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-minion1, k-minion2, k-minion3, k-minion4, k-minion5"
+                impact: "medium"
+              objective: "generated_exp1_97 >= 1.66"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
+            - 
+              scope: 
+                node: "k-portal, k-registry"
+                impact: "low"
+              objective: "generated_exp1_97 >= 1.74"
+              window: 
+                type: "static"
+                period: "monthly"
+                initial: "2018-05-01T00:00:00.000Z"
