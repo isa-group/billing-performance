@@ -613,8 +613,8 @@ if (argv._.includes('generateExperiment')) {
                      "NUMBER_METRICS,NUMBER_DISCOUNTS,NUMBER_GUARANTEES,COMPLEXITY,ENTIRES_PER_METRIC,RESPONSE_AVG,"+
                     "RESPONSE_MIN,RESPONSE_MAX,RESPONSE_SD,BYTES_RECEIVED,NUMBER_COLLECTIONS,NUMBER_ITERATIONS\n"+
                     argv.metrics+","+argv.discounts+","+argv.guarantees+","+argv.complexity+","+argv.number_values+","+
-                    summary.run.timings.responseAverage.toFixed(2).toString()+","+summary.run.timings.responseMin.toString()+","+
-                    summary.run.timings.responseMax.toString()+","+summary.run.timings.responseSd.toFixed(2).toString()+","+
+                    summary.run.timings.responseAverage.toFixed(0).toString()+","+summary.run.timings.responseMin.toString()+","+
+                    summary.run.timings.responseMax.toString()+","+summary.run.timings.responseSd.toFixed(0).toString()+","+
                     summary.run.transfers.responseTotal.toString()+","+argv.newmanCalls+","+argv.iterationsCollection+"\n";
   
                     fs.writeFileSync(pathToCSV, header ,'utf8');
