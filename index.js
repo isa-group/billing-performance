@@ -83,25 +83,41 @@ var postRequest;
 var requestCollection;
 
 if (argv._.includes('generateExperiment')) {
+  var date = new Date().toLocaleDateString();
 
-  if(!fs.existsSync(argv.prefixMetrics + "_TimeStamp")){
-    fs.mkdirSync(argv.prefixMetrics + "_TimeStamp");
-  }
-  if(!fs.existsSync(argv.prefixMetrics + "_TimeStamp/Datasets")){
-    fs.mkdirSync(argv.prefixMetrics + "_TimeStamp/Datasets");
-  }
-  if(!fs.existsSync(argv.prefixMetrics + "_TimeStamp/SLAs")){
-    fs.mkdirSync(argv.prefixMetrics + "_TimeStamp/SLAs");
-  }
-  if(!fs.existsSync(argv.prefixMetrics + "_TimeStamp/Collections")){
-    fs.mkdirSync(argv.prefixMetrics + "_TimeStamp/Collections");
-  }
-  if(!fs.existsSync(argv.prefixMetrics + "_TimeStamp/Results")){
-    fs.mkdirSync(argv.prefixMetrics + "_TimeStamp/Results");
+  // Creation of the folders to use
+  var baseFolder = argv.prefixMetrics + "_" + date;
+  if(!fs.existsSync(baseFolder)){
+    fs.mkdirSync(baseFolder);
   }
 
+  var datasetFolder = baseFolder + "/Datasets";
+  if(!fs.existsSync(datasetFolder)){
+    fs.mkdirSync(datasetFolder);
+  }
+
+  var slaFolder = baseFolder + "/SLAs";
+  if(!fs.existsSync(slaFolder)){
+    fs.mkdirSync(slaFolder);
+  }
+
+  var collectionFolder = baseFolder + "/Collections";
+  if(!fs.existsSync(collectionFolder)){
+    fs.mkdirSync(collectionFolder);
+  }
+
+  var resultsFolder = baseFolder + "/Results";
+  if(!fs.existsSync(resultsFolder)){
+    fs.mkdirSync(resultsFolder);
+  }
+
+
+
+
+
+// Yaml Generator------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   new Promise(function (resolve, reject) {
-    fs.readFile(argv.prefixMetrics + '_TimeStamp/SLAs/PoetisaSLA_' + argv.prefixFiles + '.yml', (err, data) => {
+    fs.readFile( slaFolder +'/PoetisaSLA_' + argv.prefixFiles + '.yml', (err, data) => {
       if(err){
 
         console.log("Starting the SLA generator.........")
@@ -327,9 +343,9 @@ if (argv._.includes('generateExperiment')) {
           let slaYaml = conversor.stringify(sla);
           let yamlStr = yaml.safeDump(slaYaml);
       
-          fs.writeFileSync(argv.prefixMetrics+'_TimeStamp/SLAs/PoetisaSLA_' + argv.prefixFiles + '.yml', yamlStr.slice(7, yamlStr.length), 'utf8');
+          fs.writeFileSync(slaFolder + '/PoetisaSLA_' + argv.prefixFiles + '.yml', yamlStr.slice(7, yamlStr.length), 'utf8');
       
-          console.log(".....SLA finished and writen in "+argv.prefixMetrics+"_TimeStamp/SLAs/PoetisaSLA_" + argv.prefixFiles + ".yml");
+          console.log(".....SLA finished and writen in "+ slaFolder +"/PoetisaSLA_" + argv.prefixFiles + ".yml");
 
           return resolve();
         });
@@ -342,11 +358,16 @@ if (argv._.includes('generateExperiment')) {
     });
   }).then(() =>{
 
+
+
+
+
+
+//Collection Generator -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     new Promise(function (resolve, reject) {
-      fs.readFile(argv.prefixMetrics + '_TimeStamp/Collections/Poetisa.collection_'+argv.prefixFiles+'.json', (err, data) => {
+      fs.readFile(collectionFolder + '/Poetisa.collection_'+argv.prefixFiles+'.json', (err, data) => {
         if(err){
           
-          //Collection Generator -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
           console.log("Starting the Collection Generator.......");
           // Reading file baseRequest.json to use as base
           fs.readFile('bases/baseRequest.json', (err, data) => {
@@ -405,20 +426,27 @@ if (argv._.includes('generateExperiment')) {
               // Adding the request generated to the collection
               requestCollection.item[0].request.body.raw = JSON.stringify(postRequest);
               // Writting the new collection
-              fs.writeFileSync(argv.prefixMetrics + '_TimeStamp/Collections/Poetisa.collection_'+argv.prefixFiles+'.json', JSON.stringify(requestCollection), 'utf8');
-              console.log(".....Collection finished and writen in "+ argv.prefixMetrics +"_TimeStamp/Collections/Poetisa.collection_"+argv.prefixFiles+".json");
+              fs.writeFileSync(collectionFolder + '/Poetisa.collection_'+argv.prefixFiles+'.json', JSON.stringify(requestCollection), 'utf8');
+              console.log(".....Collection finished and writen in " + collectionFolder + "/Poetisa.collection_"+argv.prefixFiles+".json");
               return resolve();
             });
           });
   
         }else{
+          //If a collection with the same prefix already exists, it'll be used
           requestCollection = JSON.parse(data);
           console.log("Collection detected, using existing collection........")
           return resolve();
         }
       });
     }).then(() =>{ 
-      //Data Generator ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+//Data Generator ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
       // Generation of the bodies of data to post with apiInflux
       new Promise(function (resolve, reject) {
@@ -496,6 +524,9 @@ if (argv._.includes('generateExperiment')) {
                 body = "";
                 
               }  
+
+              // To write every entrie in csv format it is save to a csv every 450000 entries (4 bodies) which makes the csv about 60 MB,
+              // a reasonable weight to manage folders
               if(numberOfEntries % 450000 == 0 || numberOfEntries == argv.metrics*argv.number_values)  {
 
                 let csvBody = "NUMBER_METRICS,NUMBER_DISCOUNTS,NUMBER_GUARANTEES,COMPLEXITY,ENTIRES_PER_METRIC,RESPONSE_AVG,"+
@@ -515,7 +546,7 @@ if (argv._.includes('generateExperiment')) {
             
                 csvCount++;
 
-                datasetFile = './' + argv.prefixMetrics + '_TimeStamp/Datasets/Dataset_'+argv.prefixFiles+'_'+numberEntriesCsv+'_Entries_'+csvCount+'.csv';
+                datasetFile = './' + datasetFolder + '/Dataset_'+argv.prefixFiles+'_'+numberEntriesCsv+'_Entries_'+csvCount+'.csv';
                 console.log("Writing dataset in "+datasetFile+" .......");
                 fs.writeFileSync(datasetFile, csvBody,'utf8');
               }
@@ -558,7 +589,7 @@ if (argv._.includes('generateExperiment')) {
   
         //Once all the data is in the DB, a newman.run will be launch with the collection previously generated
 
-        var pathToCSV = './' + argv.prefixMetrics + '_TimeStamp/Results/Experiment_'+argv.prefixMetrics+'.csv';
+        var pathToCSV = './' + resultsFolder +'/Experiment_'+argv.prefixMetrics+'.csv';
         var newData = "";
         var contCollections = 0;
         
@@ -577,7 +608,7 @@ if (argv._.includes('generateExperiment')) {
               
                 fs.readFile(pathToCSV, (err, data) => {
                   if(err){
-  
+                    // If the result file doesn't exist, it is created along with the header
                     let header =
                      "NUMBER_METRICS,NUMBER_DISCOUNTS,NUMBER_GUARANTEES,COMPLEXITY,ENTIRES_PER_METRIC,RESPONSE_AVG,"+
                     "RESPONSE_MIN,RESPONSE_MAX,RESPONSE_SD,BYTES_RECEIVED,NUMBER_COLLECTIONS,NUMBER_ITERATIONS\n"+
@@ -589,13 +620,13 @@ if (argv._.includes('generateExperiment')) {
                     fs.writeFileSync(pathToCSV, header ,'utf8');
                   }else{
                     
-                    // Once we have the results of newman.run in 'summary', we push it to 'records'
+                    // Once we have the results of newman.run in 'summary', we push it to 'newData'
                     if(newData == ""){
                       newData = data;
                     }
                     newData += argv.metrics+","+argv.discounts+","+argv.guarantees+","+argv.complexity+","+argv.number_values+","+
-                    summary.run.timings.responseAverage.toFixed(2).toString()+","+summary.run.timings.responseMin.toString()+","+
-                    summary.run.timings.responseMax.toString()+","+summary.run.timings.responseSd.toFixed(2).toString()+","+
+                    summary.run.timings.responseAverage.toFixed(0).toString()+","+summary.run.timings.responseMin.toString()+","+
+                    summary.run.timings.responseMax.toString()+","+summary.run.timings.responseSd.toFixed(0).toString()+","+
                     summary.run.transfers.responseTotal.toString()+","+argv.newmanCalls+","+argv.iterationsCollection+"\n";
   
                   }
